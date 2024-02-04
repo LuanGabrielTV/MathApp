@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using mathApp.Models;
+using mathApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,22 +11,24 @@ namespace mathApp.Controllers
     [ApiController]
     public class UsuarioController : Controller
     {
-         private MySQLDBContext _dbContext;  
-         public UsuarioController(MySQLDBContext context)  
-        {  
-            _dbContext = context;  
-        }  
+        private IUsuarioService _usuarioService;
+        private readonly DbContext _context;
+        public UsuarioController(IUsuarioService usuarioService, DbContext context)
+        {
+            _context = context;
+            _usuarioService = usuarioService;
+        }
         // GET: api/Usuario
         [HttpGet]
         public ActionResult<IEnumerable<Usuario>> GetUsuarios()
         {
-            return _dbContext.Usuarios.ToList();
+            return _usuarioService.GetUsuarios();
         }
         // GET: api/Usuario/1
         [HttpGet("{id}")]
         public ActionResult<Usuario> GetUsuario(int id)
         {
-            var u = _dbContext.Usuarios.Find(id);
+            var u = _usuarioService.GetUsuarioByIdUsuario(id);
             if (u == null)
             {
                 return NotFound();
@@ -33,16 +36,15 @@ namespace mathApp.Controllers
             return u;
         }
 
-         // POST: api/Usuario
+        // POST: api/Usuario
         [HttpPost]
-        public ActionResult<Usuario> CreateUsuario(Usuario usuario)
+        public ActionResult<Usuario> AddUsuario(Usuario usuario)
         {
             if (usuario == null)
             {
                 return BadRequest();
             }
-            _dbContext.Usuarios.Add(usuario);
-            _dbContext.SaveChanges();
+            _usuarioService.AddUsuario(usuario);
             return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
         }
 

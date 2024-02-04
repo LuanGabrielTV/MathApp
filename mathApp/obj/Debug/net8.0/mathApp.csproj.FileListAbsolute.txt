@@ -38,3 +38,4 @@
 /home/luangtv/Programacao/MathApp/mathApp/obj/Debug/net8.0/mathApp.pdb
 /home/luangtv/Programacao/MathApp/mathApp/obj/Debug/net8.0/mathApp.genruntimeconfig.cache
 /home/luangtv/Programacao/MathApp/mathApp/obj/Debug/net8.0/ref/mathApp.dll
+/home/luangtv/Programacao/MathApp/mathApp/obj/Debug/net8.0/mathApp.sourcelink.json

@@ -11,6 +11,7 @@ namespace mathApp.Models
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Licao> Licoes { get; set; }
+        public DbSet<UsuarioHasLicao> MatriculasLicoes { get; set; }
         public MySQLDBContext(DbContextOptions<MySQLDBContext> options) : base(options) { }
     }
 }
