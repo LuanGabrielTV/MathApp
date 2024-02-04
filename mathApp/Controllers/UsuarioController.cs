@@ -47,6 +47,29 @@ namespace mathApp.Controllers
             _usuarioService.AddUsuario(usuario);
             return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
         }
-
+        
+        // PATCH: api/Usuario
+        [HttpPatch]
+        public ActionResult<Usuario> UpdateUsuario(Usuario usuario)
+        {
+            if (usuario == null)
+            {
+                return BadRequest();
+            }
+            _usuarioService.UpdateUsuario(usuario);
+            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
+        }
+        
+        // DELETE: api/Usuario
+        [HttpDelete]
+        public ActionResult<Usuario> DeleteUsuario(Usuario usuario)
+        {
+            if (usuario == null)
+            {
+                return BadRequest();
+            }
+            _usuarioService.DeleteUsuario(usuario);
+            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
+        }
     }
 }

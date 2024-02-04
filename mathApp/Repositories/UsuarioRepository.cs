@@ -13,11 +13,11 @@ namespace mathApp.Repositories
             _context = context;
             _TbUsuario = _context.Set<Usuario>();
         }
-        Usuario IUsuarioRepository.Add(Usuario entity)
+        Usuario IUsuarioRepository.Add(Usuario usuario)
         {
-            _TbUsuario.Add(entity);
+            _TbUsuario.Add(usuario);
             _context.SaveChanges();
-            return entity;
+            return usuario;
         }
 
         ActionResult<IEnumerable<Usuario>> IUsuarioRepository.GetAll()
@@ -29,13 +29,27 @@ namespace mathApp.Repositories
         {
             return _TbUsuario.Find(id);
         }
+
+        Usuario IUsuarioRepository.Update(Usuario usuario)
+        {
+            _TbUsuario.Update(usuario);
+            _context.SaveChanges();
+            return usuario;
+        }
+
+        ActionResult<Usuario> IUsuarioRepository.Delete(Usuario usuario)
+        {
+            _TbUsuario.Remove(usuario);
+            _context.SaveChanges();
+            return usuario;
+        }
     }
     public interface IUsuarioRepository
     {
         ActionResult<Usuario> GetById(int id);
         ActionResult<IEnumerable<Usuario>> GetAll();
-        Usuario Add(Usuario entity);
-        // Task Update(Usuario entity);
-        // Task Delete(Usuario entity);
+        Usuario Add(Usuario usuario);
+        Usuario Update(Usuario usuario);
+        ActionResult<Usuario> Delete(Usuario entity);
     }
 }

@@ -9,28 +9,40 @@ namespace mathApp.Services
 
     public class UsuarioService : IUsuarioService
     {
-        private readonly IUsuarioRepository _tbUsuario;
+        private readonly IUsuarioRepository _TbUsuario;
         private readonly DbContext _context;
         public UsuarioService(IUsuarioRepository tbUsuario, DbContext context)
         {
-            _tbUsuario = tbUsuario;
+            _TbUsuario = tbUsuario;
             _context = context;
         }
 
         public ActionResult<IEnumerable<Usuario>> GetUsuarios()
         {
-            return _tbUsuario.GetAll();
+            return _TbUsuario.GetAll();
         }
 
         public ActionResult<Usuario> GetUsuarioByIdUsuario(int id)
         {
-            return _tbUsuario.GetById(id);
+            return _TbUsuario.GetById(id);
         }
 
-        public Usuario AddUsuario(Usuario u)
+        public Usuario AddUsuario(Usuario usuario)
         {
-            _tbUsuario.Add(u);
-            return u;
+            _TbUsuario.Add(usuario);
+            return usuario;
+        }
+
+        public Usuario UpdateUsuario(Usuario usuario)
+        {
+            _TbUsuario.Update(usuario);
+            return usuario;
+        }
+
+        public ActionResult<Usuario> DeleteUsuario(Usuario usuario)
+        {
+            _TbUsuario.Delete(usuario);
+            return usuario;
         }
 
     }
@@ -39,7 +51,9 @@ namespace mathApp.Services
     {
         Usuario AddUsuario(Usuario u);
         ActionResult<IEnumerable<Usuario>> GetUsuarios();
-
         ActionResult<Usuario> GetUsuarioByIdUsuario(int id);
+        Usuario UpdateUsuario(Usuario usuario);
+
+        ActionResult<Usuario> DeleteUsuario(Usuario usuario);
     }
 }
