@@ -47,7 +47,7 @@ namespace mathApp.Controllers
             _usuarioService.AddUsuario(usuario);
             return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
         }
-        
+
         // PATCH: api/Usuario
         [HttpPatch]
         public ActionResult<Usuario> UpdateUsuario(Usuario usuario)
@@ -59,10 +59,10 @@ namespace mathApp.Controllers
             _usuarioService.UpdateUsuario(usuario);
             return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
         }
-        
-        // DELETE: api/Usuario
+
+        // DELETE: api/Usuario/
         [HttpDelete]
-        public ActionResult<Usuario> DeleteUsuario(Usuario usuario)
+        public ActionResult<Usuario> DeleteUsuarioByIdUsuario(Usuario usuario)
         {
             if (usuario == null)
             {
@@ -70,6 +70,24 @@ namespace mathApp.Controllers
             }
             _usuarioService.DeleteUsuario(usuario);
             return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
+        }
+
+        // DELETE: api/Usuario/1
+        [HttpDelete("{id}")]
+        public ActionResult<Usuario> DeleteUsuarioByIdUsuario(int id)
+        {
+            Usuario usuario = _usuarioService.DeleteUsuarioByIdUsuario(id);
+            if (usuario == null)
+            {
+                return BadRequest();
+            }
+            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
+        }
+        
+        [HttpGet("nomes")]
+        public ActionResult<IEnumerable<string>> GetUsuariosNames()
+        {
+            return _usuarioService.GetUsuariosNames();
         }
     }
 }

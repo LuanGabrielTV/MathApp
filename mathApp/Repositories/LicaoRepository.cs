@@ -29,13 +29,41 @@ namespace mathApp.Repositories
         {
             return _TbLicao.Find(id);
         }
+
+        Licao ILicaoRepository.Update(Licao licao)
+        {
+            _TbLicao.Update(licao);
+            _context.SaveChanges();
+            return licao;
+        }
+
+        Licao ILicaoRepository.Delete(Licao licao)
+        {
+            _TbLicao.Remove(licao);
+            _context.SaveChanges();
+            return licao;
+        }
+
+        Licao? ILicaoRepository.DeleteById(int idLicao)
+        {
+            Licao licao = _TbLicao.Find(idLicao);
+            if (licao != null)
+            {
+                _TbLicao.Remove(licao);
+                _context.SaveChanges();
+                return licao;
+
+            }
+            return null;
+        }
     }
     public interface ILicaoRepository
     {
         ActionResult<Licao> GetById(int id);
         ActionResult<IEnumerable<Licao>> GetAll();
-        Licao Add(Licao entity);
-        // Task Update(Licao entity);
-        // Task Delete(Licao entity);
+        Licao Add(Licao licao);
+        Licao Update(Licao licao);
+        Licao Delete(Licao licao);
+        Licao DeleteById(int idLicao);
     }
 }

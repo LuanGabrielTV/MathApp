@@ -10,7 +10,5 @@ namespace mathApp.Models
         public int idLicao { get; set; }
         public Licao Licao { get; set; }
         public Boolean isFinished { get; set; }
-        public Boolean isBlocked { get; set; }
-
     }
 }

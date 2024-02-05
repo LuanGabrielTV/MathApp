@@ -8,8 +8,8 @@ namespace mathApp.Models{
         public int idLicao { get; set; }
         [Required]
         [MaxLength(30)]
-        public required string nome { get; set; }
-        public required string conteudo { get; set; }
+        public string nome { get; set; }
+        public string conteudo { get; set; }
         public int recompensa { get; set; }
         public IList<UsuarioHasLicao> UsuarioHasLicao { get; set; }
     }

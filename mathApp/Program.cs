@@ -19,8 +19,8 @@ builder.Services.AddDbContext<MySQLDBContext>(options =>
 
 builder.Services.AddScoped<DbContext, MySQLDBContext>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddScoped<ILicaoRepository, LicaoRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<ILicaoRepository, LicaoRepository>();
 builder.Services.AddScoped<ILicaoService, LicaoService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

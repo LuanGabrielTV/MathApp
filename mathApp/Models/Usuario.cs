@@ -8,12 +8,12 @@ namespace mathApp.Models{
         public int idUsuario { get; set; }
         [Required]
         [MaxLength(15)]
-        public required string nome { get; set; }
+        public string nome { get; set; }
         [Required]
-        public required string email { get; set; }
+        public string email { get; set; }
         [Required]
         [MaxLength(15)]
-        public required string senha { get; set; }
+        public string senha { get; set; }
         public int XP { get; set; }
         public IList<UsuarioHasLicao> UsuarioHasLicao { get; set; }
     }

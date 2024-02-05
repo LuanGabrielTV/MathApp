@@ -37,11 +37,28 @@ namespace mathApp.Repositories
             return usuario;
         }
 
-        ActionResult<Usuario> IUsuarioRepository.Delete(Usuario usuario)
+        Usuario? IUsuarioRepository.DeleteById(int idUsuario)
+        {
+            Usuario usuario = _TbUsuario.Find(idUsuario);
+            if (usuario != null)
+            {
+                _TbUsuario.Remove(usuario);
+                _context.SaveChanges();
+                return usuario;
+            }
+            return null;
+        }
+
+        Usuario IUsuarioRepository.Delete(Usuario usuario)
         {
             _TbUsuario.Remove(usuario);
             _context.SaveChanges();
             return usuario;
+        }
+
+        ActionResult<IEnumerable<string>> IUsuarioRepository.GetUsuariosNames()
+        {
+            return _TbUsuario.Select(u => u.nome).ToList();
         }
     }
     public interface IUsuarioRepository
@@ -50,6 +67,8 @@ namespace mathApp.Repositories
         ActionResult<IEnumerable<Usuario>> GetAll();
         Usuario Add(Usuario usuario);
         Usuario Update(Usuario usuario);
-        ActionResult<Usuario> Delete(Usuario entity);
+        Usuario DeleteById(int idUsuario);
+        Usuario Delete(Usuario usuario);
+        ActionResult<IEnumerable<string>> GetUsuariosNames();
     }
 }

@@ -39,10 +39,21 @@ namespace mathApp.Services
             return usuario;
         }
 
-        public ActionResult<Usuario> DeleteUsuario(Usuario usuario)
+        public Usuario DeleteUsuario(Usuario usuario)
         {
             _TbUsuario.Delete(usuario);
             return usuario;
+        }
+
+        public Usuario DeleteUsuarioByIdUsuario(int idUsuario)
+        {
+            Usuario usuario = _TbUsuario.DeleteById(idUsuario);
+            return usuario;
+        }
+
+        public ActionResult<IEnumerable<string>> GetUsuariosNames()
+        {
+            return _TbUsuario.GetUsuariosNames();
         }
 
     }
@@ -53,7 +64,8 @@ namespace mathApp.Services
         ActionResult<IEnumerable<Usuario>> GetUsuarios();
         ActionResult<Usuario> GetUsuarioByIdUsuario(int id);
         Usuario UpdateUsuario(Usuario usuario);
-
-        ActionResult<Usuario> DeleteUsuario(Usuario usuario);
+        Usuario DeleteUsuario(Usuario usuario);
+        Usuario DeleteUsuarioByIdUsuario(int idUsuario);
+        ActionResult<IEnumerable<string>> GetUsuariosNames();
     }
 }
