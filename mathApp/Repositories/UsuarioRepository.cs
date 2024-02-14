@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using mathApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +9,22 @@ namespace mathApp.Repositories
     {
         private readonly DbContext _context;
         private DbSet<Usuario> _TbUsuario;
+        private DbSet<Licao> _TbLicao;
         public UsuarioRepository(DbContext context)
         {
             _context = context;
             _TbUsuario = _context.Set<Usuario>();
+            _TbLicao = _context.Set<Licao>();
         }
         Usuario IUsuarioRepository.Add(Usuario usuario)
         {
+            usuario.Licoes = new Collection<Licao>();
+            Licao intro = _TbLicao.Find(1);
+            if(intro != null){
+                usuario.Licoes.Add(intro);
+                intro.Usuarios.Add(usuario);
+                _TbLicao.Update(intro);
+            }
             _TbUsuario.Add(usuario);
             _context.SaveChanges();
             return usuario;

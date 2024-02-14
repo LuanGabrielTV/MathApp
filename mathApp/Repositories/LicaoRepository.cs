@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using mathApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace mathApp.Repositories
         }
         Licao ILicaoRepository.Add(Licao licao)
         {
+            licao.Usuarios = new Collection<Usuario>();
             _TbLicao.Add(licao);
             _context.SaveChanges();
             return licao;

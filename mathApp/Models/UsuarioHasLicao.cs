@@ -10,5 +10,15 @@ namespace mathApp.Models
         public int idLicao { get; set; }
         public Licao Licao { get; set; }
         public Boolean isFinished { get; set; }
+
+        public UsuarioHasLicao(){}
+
+        public UsuarioHasLicao(Usuario usuario, Licao licao){
+            this.idUsuario = usuario.idUsuario;
+            this.Usuario = usuario;
+            this.idLicao = licao.idLicao;
+            this.Licao = licao;
+            this.isFinished = false;
+        }
     }
 }

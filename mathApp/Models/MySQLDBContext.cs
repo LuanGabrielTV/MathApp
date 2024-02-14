@@ -6,12 +6,11 @@ namespace mathApp.Models
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UsuarioHasLicao>().HasKey(ul => new { ul.idUsuario, ul.idLicao });
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Licao> Licoes { get; set; }
-        public DbSet<UsuarioHasLicao> MatriculasLicoes { get; set; }
         public MySQLDBContext(DbContextOptions<MySQLDBContext> options) : base(options) { }
     }
 }
