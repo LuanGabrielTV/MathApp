@@ -22,7 +22,7 @@ namespace mathApp.Services
             return _TbLicao.GetAll();
         }
 
-        public ActionResult<Licao> GetLicaoByIdLicao(int id)
+        public ActionResult<Licao?> GetLicaoByIdLicao(int id)
         {
             return _TbLicao.GetById(id);
         }
@@ -45,9 +45,9 @@ namespace mathApp.Services
             return licao;
         }
 
-        public Licao DeleteLicaoByIdLicao(int idLicao)
+        public Licao? DeleteLicaoByIdLicao(int idLicao)
         {
-            Licao licao = _TbLicao.DeleteById(idLicao);
+            Licao? licao = _TbLicao.DeleteById(idLicao);
             return licao;
         }
 
@@ -57,9 +57,9 @@ namespace mathApp.Services
     {
         Licao AddLicao(Licao u);
         ActionResult<IEnumerable<Licao>> GetLicoes();
-        ActionResult<Licao> GetLicaoByIdLicao(int id);
+        ActionResult<Licao?> GetLicaoByIdLicao(int id);
         Licao UpdateLicao(Licao licao);
         Licao DeleteLicao(Licao licao);
-        Licao DeleteLicaoByIdLicao(int idLicao);
+        Licao? DeleteLicaoByIdLicao(int idLicao);
     }
 }

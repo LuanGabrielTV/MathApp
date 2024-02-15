@@ -8,18 +8,18 @@ namespace mathApp.Models{
         public int idUsuario { get; set; }
         [Required]
         [MaxLength(15)]
-        public string nome { get; set; }
+        public string? nome { get; set; }
         [Required]
-        public string email { get; set; }
+        public string? email { get; set; }
         [Required]
         [MaxLength(15)]
-        public string senha { get; set; }
-        public int XP { get; set; }
-        public virtual ICollection<Licao> Licoes { get; set; }
+        public string? senha { get; set; }
+        public int? XP { get; set; }
+        public List<Licao>? Licoes { get; set; }
 
-        public Usuario(){
-            this.Licoes = new HashSet<Licao>();
-        }
+        // public Usuario(){
+            // this.Licoes = new HashSet<Licao>();
+        // }
     }
 
   

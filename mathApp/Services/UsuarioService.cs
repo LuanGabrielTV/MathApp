@@ -22,7 +22,7 @@ namespace mathApp.Services
             return _TbUsuario.GetAll();
         }
 
-        public ActionResult<Usuario> GetUsuarioByIdUsuario(int id)
+        public ActionResult<Usuario?> GetUsuarioByIdUsuario(int id)
         {
             return _TbUsuario.GetById(id);
         }
@@ -45,9 +45,9 @@ namespace mathApp.Services
             return usuario;
         }
 
-        public Usuario DeleteUsuarioByIdUsuario(int idUsuario)
+        public Usuario? DeleteUsuarioByIdUsuario(int idUsuario)
         {
-            Usuario usuario = _TbUsuario.DeleteById(idUsuario);
+            Usuario? usuario = _TbUsuario.DeleteById(idUsuario);
             return usuario;
         }
 
@@ -56,16 +56,21 @@ namespace mathApp.Services
             return _TbUsuario.GetUsuariosNames();
         }
 
+        public ActionResult<List<Licao>?> GetLicoesByUsuario(int id){
+            return _TbUsuario.GetLicoesByUsuario(id);
+        }
+
     }
 
     public interface IUsuarioService
     {
         Usuario AddUsuario(Usuario u);
         ActionResult<IEnumerable<Usuario>> GetUsuarios();
-        ActionResult<Usuario> GetUsuarioByIdUsuario(int id);
+        ActionResult<Usuario?> GetUsuarioByIdUsuario(int id);
         Usuario UpdateUsuario(Usuario usuario);
         Usuario DeleteUsuario(Usuario usuario);
-        Usuario DeleteUsuarioByIdUsuario(int idUsuario);
+        Usuario? DeleteUsuarioByIdUsuario(int idUsuario);
         ActionResult<IEnumerable<string>> GetUsuariosNames();
+        ActionResult<List<Licao>?> GetLicoesByUsuario(int id);
     }
 }

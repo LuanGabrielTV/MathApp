@@ -27,7 +27,7 @@ namespace mathApp.Controllers
 
         // GET: api/Licao/1
         [HttpGet("{id}")]
-        public ActionResult<Licao> GetLicao(int id)
+        public ActionResult<Licao?> GetLicao(int id)
         {
             var l = _licaoService.GetLicaoByIdLicao(id);
             if (l == null)
@@ -75,9 +75,9 @@ namespace mathApp.Controllers
         
         // DELETE: api/Licao/1
         [HttpDelete("{id}")]
-        public ActionResult<Licao> DeleteLicaoByIdLicao(int id)
+        public ActionResult<Licao?> DeleteLicaoByIdLicao(int id)
         {
-            Licao licao = _licaoService.DeleteLicaoByIdLicao(id);
+            Licao? licao = _licaoService.DeleteLicaoByIdLicao(id);
             if (licao == null)
             {
                 return BadRequest();

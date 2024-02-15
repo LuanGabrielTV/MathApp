@@ -16,7 +16,7 @@ namespace mathApp.Repositories
         }
         Licao ILicaoRepository.Add(Licao licao)
         {
-            licao.Usuarios = new Collection<Usuario>();
+            licao.Usuarios = new List<Usuario>();
             _TbLicao.Add(licao);
             _context.SaveChanges();
             return licao;
@@ -24,10 +24,10 @@ namespace mathApp.Repositories
 
         ActionResult<IEnumerable<Licao>> ILicaoRepository.GetAll()
         {
-            return _TbLicao.ToList();
+            return _TbLicao.Include(l => l.Usuarios).ToList();
         }
 
-        ActionResult<Licao> ILicaoRepository.GetById(int id)
+        ActionResult<Licao?> ILicaoRepository.GetById(int id)
         {
             return _TbLicao.Find(id);
         }
@@ -61,11 +61,11 @@ namespace mathApp.Repositories
     }
     public interface ILicaoRepository
     {
-        ActionResult<Licao> GetById(int id);
+        ActionResult<Licao?> GetById(int id);
         ActionResult<IEnumerable<Licao>> GetAll();
         Licao Add(Licao licao);
         Licao Update(Licao licao);
         Licao Delete(Licao licao);
-        Licao DeleteById(int idLicao);
+        Licao? DeleteById(int idLicao);
     }
 }

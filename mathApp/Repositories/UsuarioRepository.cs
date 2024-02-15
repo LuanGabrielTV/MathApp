@@ -18,12 +18,11 @@ namespace mathApp.Repositories
         }
         Usuario IUsuarioRepository.Add(Usuario usuario)
         {
-            usuario.Licoes = new Collection<Licao>();
-            Licao intro = _TbLicao.Find(1);
-            if(intro != null){
+            usuario.Licoes = new List<Licao>();
+            Licao? intro = _TbLicao.Find(1);
+            if (intro != null)
+            {
                 usuario.Licoes.Add(intro);
-                intro.Usuarios.Add(usuario);
-                _TbLicao.Update(intro);
             }
             _TbUsuario.Add(usuario);
             _context.SaveChanges();
@@ -32,12 +31,19 @@ namespace mathApp.Repositories
 
         ActionResult<IEnumerable<Usuario>> IUsuarioRepository.GetAll()
         {
-            return _TbUsuario.ToList();
+            return _TbUsuario.Include(u => u.Licoes).ToList();
         }
 
-        ActionResult<Usuario> IUsuarioRepository.GetById(int id)
+        ActionResult<Usuario?> IUsuarioRepository.GetById(int id)
         {
             return _TbUsuario.Find(id);
+        }
+
+        ActionResult<List<Licao>?> IUsuarioRepository.GetLicoesByUsuario(int id)
+        {
+            
+            Usuario? usuario = (_TbUsuario.Include(u => u.Licoes).Single(u => u.idUsuario == id));
+            return usuario?.Licoes;
         }
 
         Usuario IUsuarioRepository.Update(Usuario usuario)
@@ -49,7 +55,7 @@ namespace mathApp.Repositories
 
         Usuario? IUsuarioRepository.DeleteById(int idUsuario)
         {
-            Usuario usuario = _TbUsuario.Find(idUsuario);
+            Usuario? usuario = _TbUsuario.Find(idUsuario);
             if (usuario != null)
             {
                 _TbUsuario.Remove(usuario);
@@ -73,12 +79,13 @@ namespace mathApp.Repositories
     }
     public interface IUsuarioRepository
     {
-        ActionResult<Usuario> GetById(int id);
+        ActionResult<Usuario?> GetById(int id);
         ActionResult<IEnumerable<Usuario>> GetAll();
         Usuario Add(Usuario usuario);
         Usuario Update(Usuario usuario);
-        Usuario DeleteById(int idUsuario);
+        Usuario? DeleteById(int idUsuario);
         Usuario Delete(Usuario usuario);
         ActionResult<IEnumerable<string>> GetUsuariosNames();
+        ActionResult<List<Licao>?> GetLicoesByUsuario(int id);
     }
 }

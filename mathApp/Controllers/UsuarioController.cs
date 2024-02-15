@@ -26,7 +26,7 @@ namespace mathApp.Controllers
         }
         // GET: api/Usuario/1
         [HttpGet("{id}")]
-        public ActionResult<Usuario> GetUsuario(int id)
+        public ActionResult<Usuario?> GetUsuario(int id)
         {
             var u = _usuarioService.GetUsuarioByIdUsuario(id);
             if (u == null)
@@ -74,9 +74,9 @@ namespace mathApp.Controllers
 
         // DELETE: api/Usuario/1
         [HttpDelete("{id}")]
-        public ActionResult<Usuario> DeleteUsuarioByIdUsuario(int id)
+        public ActionResult<Usuario?> DeleteUsuarioByIdUsuario(int id)
         {
-            Usuario usuario = _usuarioService.DeleteUsuarioByIdUsuario(id);
+            Usuario? usuario = _usuarioService.DeleteUsuarioByIdUsuario(id);
             if (usuario == null)
             {
                 return BadRequest();
@@ -88,6 +88,12 @@ namespace mathApp.Controllers
         public ActionResult<IEnumerable<string>> GetUsuariosNames()
         {
             return _usuarioService.GetUsuariosNames();
+        }
+
+        [HttpGet("licoes/{id}")]
+        public  ActionResult<List<Licao>?> GetLicoesByUsuario(int id)
+        {
+            return _usuarioService.GetLicoesByUsuario(id);
         }
     }
 }

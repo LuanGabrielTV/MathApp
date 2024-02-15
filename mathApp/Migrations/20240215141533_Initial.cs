@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace mathApp.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,9 +20,9 @@ namespace mathApp.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     nome = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    conteudo = table.Column<string>(type: "longtext", nullable: false)
+                    conteudo = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    recompensa = table.Column<int>(type: "int", nullable: false)
+                    recompensa = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,17 +42,50 @@ namespace mathApp.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     senha = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    XP = table.Column<int>(type: "int", nullable: false)
+                    XP = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.idUsuario);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UsuarioHasLicao",
+                columns: table => new
+                {
+                    LicoesidLicao = table.Column<int>(type: "int", nullable: false),
+                    UsuariosidUsuario = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsuarioHasLicao", x => new { x.LicoesidLicao, x.UsuariosidUsuario });
+                    table.ForeignKey(
+                        name: "FK_UsuarioHasLicao_Licoes_LicoesidLicao",
+                        column: x => x.LicoesidLicao,
+                        principalTable: "Licoes",
+                        principalColumn: "idLicao",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UsuarioHasLicao_Usuarios_UsuariosidUsuario",
+                        column: x => x.UsuariosidUsuario,
+                        principalTable: "Usuarios",
+                        principalColumn: "idUsuario",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsuarioHasLicao_UsuariosidUsuario",
+                table: "UsuarioHasLicao",
+                column: "UsuariosidUsuario");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "UsuarioHasLicao");
+
             migrationBuilder.DropTable(
                 name: "Licoes");
 

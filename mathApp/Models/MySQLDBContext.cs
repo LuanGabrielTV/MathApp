@@ -6,6 +6,7 @@ namespace mathApp.Models
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Usuario>().HasMany(u => u.Licoes).WithMany(l => l.Usuarios).UsingEntity("UsuarioHasLicao");
             base.OnModelCreating(modelBuilder);
         }
 
