@@ -51,24 +51,26 @@ namespace mathApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "UsuarioHasLicao",
+                name: "Matriculas",
                 columns: table => new
                 {
-                    LicoesidLicao = table.Column<int>(type: "int", nullable: false),
-                    UsuariosidUsuario = table.Column<int>(type: "int", nullable: false)
+                    idUsuario = table.Column<int>(type: "int", nullable: false),
+                    idLicao = table.Column<int>(type: "int", nullable: false),
+                    UsuarioidUsuario = table.Column<int>(type: "int", nullable: false),
+                    LicaoidLicao = table.Column<int>(type: "int", nullable: true),
+                    isFinished = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UsuarioHasLicao", x => new { x.LicoesidLicao, x.UsuariosidUsuario });
+                    table.PrimaryKey("PK_Matriculas", x => new { x.idUsuario, x.idLicao });
                     table.ForeignKey(
-                        name: "FK_UsuarioHasLicao_Licoes_LicoesidLicao",
-                        column: x => x.LicoesidLicao,
+                        name: "FK_Matriculas_Licoes_LicaoidLicao",
+                        column: x => x.LicaoidLicao,
                         principalTable: "Licoes",
-                        principalColumn: "idLicao",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "idLicao");
                     table.ForeignKey(
-                        name: "FK_UsuarioHasLicao_Usuarios_UsuariosidUsuario",
-                        column: x => x.UsuariosidUsuario,
+                        name: "FK_Matriculas_Usuarios_UsuarioidUsuario",
+                        column: x => x.UsuarioidUsuario,
                         principalTable: "Usuarios",
                         principalColumn: "idUsuario",
                         onDelete: ReferentialAction.Cascade);
@@ -76,15 +78,20 @@ namespace mathApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsuarioHasLicao_UsuariosidUsuario",
-                table: "UsuarioHasLicao",
-                column: "UsuariosidUsuario");
+                name: "IX_Matriculas_LicaoidLicao",
+                table: "Matriculas",
+                column: "LicaoidLicao");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Matriculas_UsuarioidUsuario",
+                table: "Matriculas",
+                column: "UsuarioidUsuario");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UsuarioHasLicao");
+                name: "Matriculas");
 
             migrationBuilder.DropTable(
                 name: "Licoes");

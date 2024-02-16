@@ -11,7 +11,7 @@ using mathApp.Models;
 namespace mathApp.Migrations
 {
     [DbContext(typeof(MySQLDBContext))]
-    [Migration("20240215141533_Initial")]
+    [Migration("20240216001753_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,21 +20,6 @@ namespace mathApp.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("UsuarioHasLicao", b =>
-                {
-                    b.Property<int>("LicoesidLicao")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsuariosidUsuario")
-                        .HasColumnType("int");
-
-                    b.HasKey("LicoesidLicao", "UsuariosidUsuario");
-
-                    b.HasIndex("UsuariosidUsuario");
-
-                    b.ToTable("UsuarioHasLicao");
-                });
 
             modelBuilder.Entity("mathApp.Models.Licao", b =>
                 {
@@ -86,19 +71,57 @@ namespace mathApp.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("UsuarioHasLicao", b =>
+            modelBuilder.Entity("mathApp.Models.UsuarioHasLicao", b =>
                 {
-                    b.HasOne("mathApp.Models.Licao", null)
-                        .WithMany()
-                        .HasForeignKey("LicoesidLicao")
+                    b.Property<int>("idUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int>("idLicao")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LicaoidLicao")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioidUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isFinished")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("idUsuario", "idLicao");
+
+                    b.HasIndex("LicaoidLicao");
+
+                    b.HasIndex("UsuarioidUsuario");
+
+                    b.ToTable("Matriculas");
+                });
+
+            modelBuilder.Entity("mathApp.Models.UsuarioHasLicao", b =>
+                {
+                    b.HasOne("mathApp.Models.Licao", "Licao")
+                        .WithMany("Matriculas")
+                        .HasForeignKey("LicaoidLicao");
+
+                    b.HasOne("mathApp.Models.Usuario", "Usuario")
+                        .WithMany("Matriculas")
+                        .HasForeignKey("UsuarioidUsuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("mathApp.Models.Usuario", null)
-                        .WithMany()
-                        .HasForeignKey("UsuariosidUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Licao");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("mathApp.Models.Licao", b =>
+                {
+                    b.Navigation("Matriculas");
+                });
+
+            modelBuilder.Entity("mathApp.Models.Usuario", b =>
+                {
+                    b.Navigation("Matriculas");
                 });
 #pragma warning restore 612, 618
         }

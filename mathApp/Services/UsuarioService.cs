@@ -55,11 +55,6 @@ namespace mathApp.Services
         {
             return _TbUsuario.GetUsuariosNames();
         }
-
-        public ActionResult<List<Licao>?> GetLicoesByUsuario(int id){
-            return _TbUsuario.GetLicoesByUsuario(id);
-        }
-
     }
 
     public interface IUsuarioService
@@ -71,6 +66,6 @@ namespace mathApp.Services
         Usuario DeleteUsuario(Usuario usuario);
         Usuario? DeleteUsuarioByIdUsuario(int idUsuario);
         ActionResult<IEnumerable<string>> GetUsuariosNames();
-        ActionResult<List<Licao>?> GetLicoesByUsuario(int id);
+
     }
 }

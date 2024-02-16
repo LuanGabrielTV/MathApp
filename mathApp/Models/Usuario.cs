@@ -15,7 +15,7 @@ namespace mathApp.Models{
         [MaxLength(15)]
         public string? senha { get; set; }
         public int? XP { get; set; }
-        public List<Licao>? Licoes { get; set; }
+        public List<UsuarioHasLicao>? Matriculas { get; set; }
 
         // public Usuario(){
             // this.Licoes = new HashSet<Licao>();

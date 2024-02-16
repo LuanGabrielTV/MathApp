@@ -89,11 +89,5 @@ namespace mathApp.Controllers
         {
             return _usuarioService.GetUsuariosNames();
         }
-
-        [HttpGet("licoes/{id}")]
-        public  ActionResult<List<Licao>?> GetLicoesByUsuario(int id)
-        {
-            return _usuarioService.GetLicoesByUsuario(id);
-        }
     }
 }

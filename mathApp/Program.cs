@@ -37,6 +37,8 @@ builder.Services.AddControllers().AddJsonOptions(x =>
    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IUsuarioHasLicaoRepository, UsuarioHasLicaoRepository>();
+builder.Services.AddScoped<IUsuarioHasLicaoService, UsuarioHasLicaoService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

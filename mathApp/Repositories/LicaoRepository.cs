@@ -16,7 +16,7 @@ namespace mathApp.Repositories
         }
         Licao ILicaoRepository.Add(Licao licao)
         {
-            licao.Usuarios = new List<Usuario>();
+            licao.Matriculas = new List<UsuarioHasLicao>();
             _TbLicao.Add(licao);
             _context.SaveChanges();
             return licao;
@@ -24,7 +24,7 @@ namespace mathApp.Repositories
 
         ActionResult<IEnumerable<Licao>> ILicaoRepository.GetAll()
         {
-            return _TbLicao.Include(l => l.Usuarios).ToList();
+            return _TbLicao.Include(l => l.Matriculas).ThenInclude(m => m.Usuario).ToList();
         }
 
         ActionResult<Licao?> ILicaoRepository.GetById(int id)

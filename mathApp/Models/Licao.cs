@@ -11,7 +11,7 @@ namespace mathApp.Models{
         public string? nome { get; set; }
         public string? conteudo { get; set; }
         public int? recompensa { get; set; }
-        public List<Usuario>? Usuarios { get; set; }
+        public List<UsuarioHasLicao>? Matriculas { get; set; }
 
         // public Licao(){
         //     this.Usuarios = new HashSet<Usuario>();

@@ -10,42 +10,40 @@ namespace mathApp.Repositories
         private readonly DbContext _context;
         private DbSet<Usuario> _TbUsuario;
         private DbSet<Licao> _TbLicao;
+
+        private DbSet<UsuarioHasLicao> _TbMatricula;
         public UsuarioRepository(DbContext context)
         {
             _context = context;
             _TbUsuario = _context.Set<Usuario>();
             _TbLicao = _context.Set<Licao>();
+            _TbMatricula = _context.Set<UsuarioHasLicao>();
         }
         Usuario IUsuarioRepository.Add(Usuario usuario)
         {
-            usuario.Licoes = new List<Licao>();
             Licao? intro = _TbLicao.Find(1);
+            usuario.Matriculas = new List<UsuarioHasLicao>();
             if (intro != null)
             {
-                usuario.Licoes.Add(intro);
+                UsuarioHasLicao mat = new UsuarioHasLicao(usuario, intro);
+                Console.Write(mat.Licao.nome);
+                Console.Write(mat.Usuario.nome);
+                _TbMatricula.Add(mat);
+                _TbUsuario.Add(usuario);
             }
-            _TbUsuario.Add(usuario);
             _context.SaveChanges();
             return usuario;
         }
 
         ActionResult<IEnumerable<Usuario>> IUsuarioRepository.GetAll()
         {
-            return _TbUsuario.Include(u => u.Licoes).ToList();
+            return _TbUsuario.Include(u => u.Matriculas).ThenInclude(m => m.Licao).ToList();
         }
 
         ActionResult<Usuario?> IUsuarioRepository.GetById(int id)
         {
-            return _TbUsuario.Find(id);
+            return _TbUsuario.Include(u => u.Matriculas).Single(u => u.idUsuario == id);
         }
-
-        ActionResult<List<Licao>?> IUsuarioRepository.GetLicoesByUsuario(int id)
-        {
-            
-            Usuario? usuario = (_TbUsuario.Include(u => u.Licoes).Single(u => u.idUsuario == id));
-            return usuario?.Licoes;
-        }
-
         Usuario IUsuarioRepository.Update(Usuario usuario)
         {
             _TbUsuario.Update(usuario);
@@ -86,6 +84,5 @@ namespace mathApp.Repositories
         Usuario? DeleteById(int idUsuario);
         Usuario Delete(Usuario usuario);
         ActionResult<IEnumerable<string>> GetUsuariosNames();
-        ActionResult<List<Licao>?> GetLicoesByUsuario(int id);
     }
 }
