@@ -23,13 +23,14 @@ namespace mathApp.Repositories
         {
             Licao? intro = _TbLicao.Find(1);
             usuario.Matriculas = new List<UsuarioHasLicao>();
+            _TbUsuario.Add(usuario);
+            _context.SaveChanges();
             if (intro != null)
             {
                 UsuarioHasLicao mat = new UsuarioHasLicao(usuario, intro);
                 Console.Write(mat.Licao.nome);
                 Console.Write(mat.Usuario.nome);
                 _TbMatricula.Add(mat);
-                _TbUsuario.Add(usuario);
             }
             _context.SaveChanges();
             return usuario;

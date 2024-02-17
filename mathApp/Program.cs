@@ -39,6 +39,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuarioHasLicaoRepository, UsuarioHasLicaoRepository>();
 builder.Services.AddScoped<IUsuarioHasLicaoService, UsuarioHasLicaoService>();
+builder.Services.AddScoped<IAtividadeRepository, AtividadeRepository>();
+builder.Services.AddScoped<IAtividadeService, AtividadeService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using mathApp.DTO;
 using mathApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace mathApp.Repositories
         Licao ILicaoRepository.Add(Licao licao)
         {
             licao.Matriculas = new List<UsuarioHasLicao>();
+            licao.Atividades = new List<Atividade>();
             _TbLicao.Add(licao);
             _context.SaveChanges();
             return licao;
@@ -24,7 +26,7 @@ namespace mathApp.Repositories
 
         ActionResult<IEnumerable<Licao>> ILicaoRepository.GetAll()
         {
-            return _TbLicao.Include(l => l.Matriculas).ThenInclude(m => m.Usuario).ToList();
+            return _TbLicao.Include(l => l.Atividades).Include(l => l.Matriculas).ThenInclude(m => m.Usuario).ToList();
         }
 
         ActionResult<Licao?> ILicaoRepository.GetById(int id)
@@ -58,6 +60,16 @@ namespace mathApp.Repositories
             }
             return null;
         }
+
+        Atividade ILicaoRepository.AddAtividade(AtividadeDTO atividadeDto)
+        {
+            Licao? l = _TbLicao.Find(atividadeDto.idLicao);
+            Atividade atividade = new Atividade(atividadeDto);
+            atividade.Licao = l;
+            l.Atividades.Add(atividade);
+            _context.SaveChanges();
+            return atividade;
+        }
     }
     public interface ILicaoRepository
     {
@@ -67,5 +79,6 @@ namespace mathApp.Repositories
         Licao Update(Licao licao);
         Licao Delete(Licao licao);
         Licao? DeleteById(int idLicao);
+        Atividade AddAtividade(AtividadeDTO atividadeDto);
     }
 }

@@ -20,11 +20,12 @@ namespace mathApp.Repositories
         }
 
         ActionResult<IEnumerable<UsuarioHasLicao>> IUsuarioHasLicaoRepository.GetMatriculasByUsuario(int idUsuario){
-            return _TbUsuarioHasLicao.Where(m => m.idUsuario == idUsuario).ToList();
+            return _TbUsuarioHasLicao.Include(m => m.Licao).Where(m => m.idUsuario == idUsuario).ToList();
         }
 
         ActionResult<IEnumerable<UsuarioHasLicao>> IUsuarioHasLicaoRepository.GetMatriculasByLicao(int idLicao){
-            return _TbUsuarioHasLicao.Where(m => m.idLicao == idLicao).ToList();
+            return _TbUsuarioHasLicao.Include(m => m.Licao).Include(m => m.Usuario).Where(m => m.idLicao == idLicao).ToList();
+            // Include(m => m.Usuario).Include(m => m.idLicao).Where(m => m.idLicao == idLicao).ToList();
         }
 
     }

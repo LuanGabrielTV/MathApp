@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using mathApp.DTO;
 using mathApp.Models;
 using mathApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,18 @@ namespace mathApp.Controllers
             }
             _licaoService.AddLicao(licao);
             return CreatedAtAction(nameof(GetLicao), new { id = licao.idLicao }, licao);
+        }
+
+           // POST: api/Licao
+        [HttpPost("Atividade")]
+        public ActionResult<Atividade> AddAtividade(AtividadeDTO atividadeDto)
+        {
+            if (atividadeDto == null)
+            {
+                return BadRequest();
+            }
+            _licaoService.AddAtividade(atividadeDto);
+            return CreatedAtAction(nameof(GetLicao), new { id = atividadeDto.enunciado }, atividadeDto);
         }
 
         // PATCH: api/Licao

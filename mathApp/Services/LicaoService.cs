@@ -1,3 +1,4 @@
+using mathApp.DTO;
 using mathApp.Models;
 using mathApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +52,9 @@ namespace mathApp.Services
             return licao;
         }
 
+        public ActionResult<Atividade> AddAtividade(AtividadeDTO atividadeDto){
+            return _TbLicao.AddAtividade(atividadeDto);
+        }
     }
 
     public interface ILicaoService
@@ -61,5 +65,6 @@ namespace mathApp.Services
         Licao UpdateLicao(Licao licao);
         Licao DeleteLicao(Licao licao);
         Licao? DeleteLicaoByIdLicao(int idLicao);
+        ActionResult<Atividade> AddAtividade(AtividadeDTO atividadeDto);
     }
 }

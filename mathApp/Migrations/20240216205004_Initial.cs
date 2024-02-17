@@ -51,6 +51,33 @@ namespace mathApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Atividades",
+                columns: table => new
+                {
+                    idAtividade = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    enunciado = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    conteudo = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    solucao = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    isFinished = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    idLicao = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Atividades", x => x.idAtividade);
+                    table.ForeignKey(
+                        name: "FK_Atividades_Licoes_idLicao",
+                        column: x => x.idLicao,
+                        principalTable: "Licoes",
+                        principalColumn: "idLicao",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Matriculas",
                 columns: table => new
                 {
@@ -78,6 +105,11 @@ namespace mathApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Atividades_idLicao",
+                table: "Atividades",
+                column: "idLicao");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Matriculas_LicaoidLicao",
                 table: "Matriculas",
                 column: "LicaoidLicao");
@@ -90,6 +122,9 @@ namespace mathApp.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Atividades");
+
             migrationBuilder.DropTable(
                 name: "Matriculas");
 

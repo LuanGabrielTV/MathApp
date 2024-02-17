@@ -11,7 +11,7 @@ using mathApp.Models;
 namespace mathApp.Migrations
 {
     [DbContext(typeof(MySQLDBContext))]
-    [Migration("20240216001753_Initial")]
+    [Migration("20240216205004_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,36 @@ namespace mathApp.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("mathApp.Models.Atividade", b =>
+                {
+                    b.Property<int>("idAtividade")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("conteudo")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("enunciado")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<int>("idLicao")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("isFinished")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("solucao")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("idAtividade");
+
+                    b.HasIndex("idLicao");
+
+                    b.ToTable("Atividades");
+                });
 
             modelBuilder.Entity("mathApp.Models.Licao", b =>
                 {
@@ -97,6 +127,17 @@ namespace mathApp.Migrations
                     b.ToTable("Matriculas");
                 });
 
+            modelBuilder.Entity("mathApp.Models.Atividade", b =>
+                {
+                    b.HasOne("mathApp.Models.Licao", "Licao")
+                        .WithMany("Atividades")
+                        .HasForeignKey("idLicao")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Licao");
+                });
+
             modelBuilder.Entity("mathApp.Models.UsuarioHasLicao", b =>
                 {
                     b.HasOne("mathApp.Models.Licao", "Licao")
@@ -116,6 +157,8 @@ namespace mathApp.Migrations
 
             modelBuilder.Entity("mathApp.Models.Licao", b =>
                 {
+                    b.Navigation("Atividades");
+
                     b.Navigation("Matriculas");
                 });
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mathApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3c781f44601f9b0e361a9bc64f8b9ca40d3f2cd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd3db53a6fafbbd759b20c40eed33bac4987feb3")]
 [assembly: System.Reflection.AssemblyProductAttribute("mathApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mathApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
