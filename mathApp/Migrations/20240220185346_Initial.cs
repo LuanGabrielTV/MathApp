@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -40,8 +41,8 @@ namespace mathApp.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    senha = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    senha = table.Column<byte[]>(type: "longblob", nullable: false),
+                    salt = table.Column<byte[]>(type: "longblob", nullable: true),
                     XP = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

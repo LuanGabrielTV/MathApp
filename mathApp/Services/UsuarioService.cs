@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using mathApp.DTO;
 using mathApp.Models;
 using mathApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +29,17 @@ namespace mathApp.Services
             return _TbUsuario.GetById(id);
         }
 
-        public Usuario AddUsuario(Usuario usuario)
+        public Usuario AddUsuario(UsuarioDTO usuarioDTO, byte[] hash, byte[] salt)
         {
-            _TbUsuario.Add(usuario);
-            return usuario;
+
+            Usuario u = _TbUsuario.Add(usuarioDTO, hash, salt);
+            return u;
+        }
+
+        public Usuario findByCredentials(string email)
+        {
+            Usuario u = _TbUsuario.findByCredentials(email);
+            return u;
         }
 
         public Usuario UpdateUsuario(Usuario usuario)
@@ -55,11 +64,14 @@ namespace mathApp.Services
         {
             return _TbUsuario.GetUsuariosNames();
         }
+
+
     }
 
     public interface IUsuarioService
     {
-        Usuario AddUsuario(Usuario u);
+        Usuario AddUsuario(UsuarioDTO usuarioDTO, byte[] hash, byte[] salt);
+        Usuario findByCredentials(string email);
         ActionResult<IEnumerable<Usuario>> GetUsuarios();
         ActionResult<Usuario?> GetUsuarioByIdUsuario(int id);
         Usuario UpdateUsuario(Usuario usuario);

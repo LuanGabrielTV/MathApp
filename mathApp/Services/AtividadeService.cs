@@ -33,12 +33,6 @@ namespace mathApp.Services
             return _TbAtividade.GetByIdLicao(idLicao);
         }
 
-        public Atividade AddAtividade(AtividadeDTO a)
-        {
-            Atividade atividade = _TbAtividade.Add(a);
-            return atividade;
-        }
-
         public Atividade UpdateAtividade(Atividade atividade)
         {
             _TbAtividade.Update(atividade);
@@ -61,7 +55,6 @@ namespace mathApp.Services
 
     public interface IAtividadeService
     {
-        Atividade AddAtividade(AtividadeDTO a);
         ActionResult<IEnumerable<Atividade>> GetAtividades();
         ActionResult<Atividade?> GetAtividadeByIdAtividade(int id);
         ActionResult<IEnumerable<Atividade>> GetAtividadesByIdLicao(int idLicao);

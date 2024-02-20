@@ -15,13 +15,6 @@ namespace mathApp.Repositories
             _context = context;
             _TbAtividade = _context.Set<Atividade>();
         }
-        Atividade IAtividadeRepository.Add(AtividadeDTO atividadeDto)
-        {
-            Atividade atividade = new Atividade(atividadeDto);
-            _TbAtividade.Add(atividade);
-            _context.SaveChanges();
-            return atividade;
-        }
 
         ActionResult<IEnumerable<Atividade>> IAtividadeRepository.GetAll()
         {
@@ -71,7 +64,6 @@ namespace mathApp.Repositories
         ActionResult<Atividade?> GetById(int id);
         ActionResult<IEnumerable<Atividade>> GetByIdLicao(int idLicao);
         ActionResult<IEnumerable<Atividade>> GetAll();
-        Atividade Add(AtividadeDTO atividadeDto);
         Atividade Update(Atividade atividade);
         Atividade Delete(Atividade atividade);
         Atividade? DeleteById(int idAtividade);

@@ -39,3 +39,8 @@
 /home/luangtv/Programacao/MathApp/mathApp/obj/Debug/net8.0/mathApp.genruntimeconfig.cache
 /home/luangtv/Programacao/MathApp/mathApp/obj/Debug/net8.0/ref/mathApp.dll
 /home/luangtv/Programacao/MathApp/mathApp/obj/Debug/net8.0/mathApp.sourcelink.json
+/home/luangtv/Programacao/MathApp/mathApp/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/home/luangtv/Programacao/MathApp/mathApp/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/luangtv/Programacao/MathApp/mathApp/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/home/luangtv/Programacao/MathApp/mathApp/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/home/luangtv/Programacao/MathApp/mathApp/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll

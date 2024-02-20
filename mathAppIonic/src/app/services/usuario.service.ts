@@ -17,9 +17,9 @@ export class UsuarioService {
 
   async addUsuario(usuario:Usuario){
     try{
-      usuario.XP = 0;
-      // usuario.UsuarioHasLicao = [];
-      this.httpClient.post<Usuario>(this.urlServidor, JSON.stringify(usuario), this.httpOptions).subscribe((data)=> {
+      let url = "http://localhost:5091/api/register/";
+      console.log(JSON.stringify(usuario));
+      this.httpClient.post<Usuario>(url, JSON.stringify(usuario), this.httpOptions).subscribe((data)=> {
         console.log(data);
       });
     }catch(erro){

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using mathApp.DTO;
 using mathApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,22 +20,30 @@ namespace mathApp.Repositories
             _TbLicao = _context.Set<Licao>();
             _TbMatricula = _context.Set<UsuarioHasLicao>();
         }
-        Usuario IUsuarioRepository.Add(Usuario usuario)
+        Usuario IUsuarioRepository.Add(UsuarioDTO usuarioDTO, byte[] hash, byte[] salt)
         {
+            Usuario usuario = new Usuario(usuarioDTO, hash, salt);
             Licao? intro = _TbLicao.Find(1);
-            usuario.Matriculas = new List<UsuarioHasLicao>();
             _TbUsuario.Add(usuario);
             _context.SaveChanges();
             if (intro != null)
             {
                 UsuarioHasLicao mat = new UsuarioHasLicao(usuario, intro);
-                Console.Write(mat.Licao.nome);
-                Console.Write(mat.Usuario.nome);
                 _TbMatricula.Add(mat);
             }
             _context.SaveChanges();
             return usuario;
         }
+
+        Usuario IUsuarioRepository.findByCredentials(string email)
+        {
+            Usuario u = _TbUsuario.Where(u => u.email == email).FirstOrDefault();
+            if(u == null){
+                return null;
+            }
+            return u;
+        }
+
 
         ActionResult<IEnumerable<Usuario>> IUsuarioRepository.GetAll()
         {
@@ -79,8 +88,9 @@ namespace mathApp.Repositories
     public interface IUsuarioRepository
     {
         ActionResult<Usuario?> GetById(int id);
+        Usuario findByCredentials(string email);
         ActionResult<IEnumerable<Usuario>> GetAll();
-        Usuario Add(Usuario usuario);
+        Usuario Add(UsuarioDTO usuarioDTO, byte[] hash, byte[] salt);
         Usuario Update(Usuario usuario);
         Usuario? DeleteById(int idUsuario);
         Usuario Delete(Usuario usuario);

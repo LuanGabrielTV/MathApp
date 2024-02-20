@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "13QZpXr/5XF3oxp92CgXkw74U91CNbHrG9BUFoa+FZ1TlZgvjivrDczQT45TAwlvmsNriWNfXMKTEYWGm4Wq6Q==",
+  "dgSpecHash": "8iu9IINv1rNQsdNpdI6ia9wfGsPjGhmQZsn9HyTNBavEL95P8GOGv0+xc9h/aGMHoOJxsXOsiptIytNTH8uM8g==",
   "success": true,
   "projectFilePath": "/home/luangtv/Programacao/MathApp/mathApp/mathApp.csproj",
   "expectedPackageFiles": [
@@ -21,6 +21,10 @@
     "/home/luangtv/.nuget/packages/microsoft.extensions.logging.abstractions/6.0.0/microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
     "/home/luangtv/.nuget/packages/microsoft.extensions.options/6.0.0/microsoft.extensions.options.6.0.0.nupkg.sha512",
     "/home/luangtv/.nuget/packages/microsoft.extensions.primitives/6.0.0/microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "/home/luangtv/.nuget/packages/microsoft.identitymodel.abstractions/7.3.1/microsoft.identitymodel.abstractions.7.3.1.nupkg.sha512",
+    "/home/luangtv/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.3.1/microsoft.identitymodel.jsonwebtokens.7.3.1.nupkg.sha512",
+    "/home/luangtv/.nuget/packages/microsoft.identitymodel.logging/7.3.1/microsoft.identitymodel.logging.7.3.1.nupkg.sha512",
+    "/home/luangtv/.nuget/packages/microsoft.identitymodel.tokens/7.3.1/microsoft.identitymodel.tokens.7.3.1.nupkg.sha512",
     "/home/luangtv/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/home/luangtv/.nuget/packages/mysqlconnector/2.1.2/mysqlconnector.2.1.2.nupkg.sha512",
     "/home/luangtv/.nuget/packages/pomelo.entityframeworkcore.mysql/6.0.1/pomelo.entityframeworkcore.mysql.6.0.1.nupkg.sha512",
@@ -30,6 +34,7 @@
     "/home/luangtv/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
     "/home/luangtv/.nuget/packages/system.collections.immutable/6.0.0/system.collections.immutable.6.0.0.nupkg.sha512",
     "/home/luangtv/.nuget/packages/system.diagnostics.diagnosticsource/6.0.0/system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
+    "/home/luangtv/.nuget/packages/system.identitymodel.tokens.jwt/7.3.1/system.identitymodel.tokens.jwt.7.3.1.nupkg.sha512",
     "/home/luangtv/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []

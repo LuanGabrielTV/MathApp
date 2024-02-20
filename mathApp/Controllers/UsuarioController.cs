@@ -37,16 +37,16 @@ namespace mathApp.Controllers
         }
 
         // POST: api/Usuario
-        [HttpPost]
-        public ActionResult<Usuario> AddUsuario(Usuario usuario)
-        {
-            if (usuario == null)
-            {
-                return BadRequest();
-            }
-            _usuarioService.AddUsuario(usuario);
-            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
-        }
+        // [HttpPost]
+        // public ActionResult<Usuario> AddUsuario(Usuario usuario)
+        // {
+        //     if (usuario == null)
+        //     {
+        //         return BadRequest();
+        //     }
+        //     _usuarioService.AddUsuario(usuario);
+        //     return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
+        // }
 
         // PATCH: api/Usuario
         [HttpPatch]

@@ -8,6 +8,7 @@ using mathApp.Models;
 using mathApp.Repositories;
 using mathApp.Services;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -27,7 +28,6 @@ builder.Services.AddCors(options =>
                       });
 });
 
-
 builder.Services.AddScoped<DbContext, MySQLDBContext>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
@@ -41,6 +41,7 @@ builder.Services.AddScoped<IUsuarioHasLicaoRepository, UsuarioHasLicaoRepository
 builder.Services.AddScoped<IUsuarioHasLicaoService, UsuarioHasLicaoService>();
 builder.Services.AddScoped<IAtividadeRepository, AtividadeRepository>();
 builder.Services.AddScoped<IAtividadeService, AtividadeService>();
+// builder.Services.AddIdentityCore<Usuario>().AddApiEndpoints();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -50,6 +51,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
+// app.MapIdentityApi<Usuario>();
 app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();

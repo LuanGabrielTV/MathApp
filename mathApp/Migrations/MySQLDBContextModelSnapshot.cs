@@ -89,10 +89,12 @@ namespace mathApp.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)");
 
-                    b.Property<string>("senha")
+                    b.Property<byte[]>("salt")
+                        .HasColumnType("longblob");
+
+                    b.Property<byte[]>("senha")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("varchar(15)");
+                        .HasColumnType("longblob");
 
                     b.HasKey("idUsuario");
 

@@ -49,18 +49,6 @@ namespace mathApp.Controllers
             return a;
         }
 
-        // POST: api/Atividade
-        [HttpPost]
-        public ActionResult<Atividade> AddAtividade(AtividadeDTO atividadeDto)
-        {
-            if (atividadeDto == null)
-            {
-                return BadRequest();
-            }
-            _atividadeService.AddAtividade(atividadeDto);
-            return CreatedAtAction(nameof(GetAtividade), new { id = atividadeDto.enunciado }, atividadeDto);
-        }
-
         // PATCH: api/Atividade
         [HttpPatch]
         public ActionResult<Atividade> UpdateAtividade(Atividade atividade)
