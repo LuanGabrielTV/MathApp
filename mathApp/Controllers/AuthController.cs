@@ -49,39 +49,39 @@ namespace mathApp.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult<UsuarioDTO> loginUsuario(UsuarioDTO request)
+        public String? loginUsuario(UsuarioDTO request)
         {
 
             if (request == null)
             {
-                return BadRequest();
+                return null;
             }
 
             byte[] hashComputado;
             Usuario u = _usuarioService.findByCredentials(request.email);
+            if (u == null)
+            {
+                return null;
+            }
             using (var hmac = new HMACSHA512(u.salt))
             {
                 hashComputado = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(request.senha));
             }
             Console.WriteLine(hashComputado.ToString());
-            if (u == null)
-            {
-                return BadRequest("Login errado!");
-            }
             if(!u.senha.SequenceEqual(hashComputado))
             {
-                return BadRequest("Login errado!");
+                return null;
             }
             UsuarioDTO usuarioDTO = new UsuarioDTO(u);
             string token = criarToken(usuarioDTO);
 
-            return Ok(token);
+            return token;
 
         }
 
         private string criarToken(UsuarioDTO u)
         {
-            List<Claim> claims = new List<Claim> { new Claim(ClaimTypes.Email, u.email), new Claim(ClaimTypes.Name, u.nome) };
+            List<Claim> claims = new List<Claim> { new Claim("email", u.email), new Claim("nome", u.nome), new Claim("id", u.id.ToString()) };
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 

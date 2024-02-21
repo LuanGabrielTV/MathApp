@@ -1,21 +1,27 @@
-form{
+form {
     justify-content: center;
     align-content: center;
     align-items: center;
     display: flex;
 }
 
-ion-list{
+ion-list {
     position: absolute;
     width: 40%;
     top: 30%;
     left: 30%;
 }
 
-ion-button{
+ion-button {
     font-weight: bold;
 }
 
+.custom-toast{
+    // --background: #0000ff;
+    --box-shadow: none;
+    // --color: #504a4a;
+}
 
-
-
+.custom-toast::part(message) {
+    font-weight: bold;
+}

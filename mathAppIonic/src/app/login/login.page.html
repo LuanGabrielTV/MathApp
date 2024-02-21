@@ -3,14 +3,6 @@
     <ion-list>
 
       <ion-item>
-        <ion-input label="Nome" required formControlName="nome" required labelPlacement="floating"
-          placeholder="Como você deseja ser chamado">
-        </ion-input>
-        <ion-text color="danger" class="errorMessage" *ngIf="!form.get('nome')?.valid && form.get('nome')?.dirty"> O
-          campo é obrigatório. No mínimo 8 caracteres</ion-text>
-      </ion-item>
-
-      <ion-item>
         <ion-input label="E-mail" formControlName="email" required labelPlacement="floating"
           placeholder="Endereço completo"></ion-input>
         <ion-text color="danger" class="errorMessage" *ngIf="!form.get('email')?.valid && form.get('email')?.dirty">
@@ -24,9 +16,18 @@
           O campo é obrigatório. No mínimo 8 e no máximo 15 caracteres</ion-text>
       </ion-item>
       <ion-item>
-        <ion-button fill="outline" color="dark" [disabled]="!form.valid" type="submit" slot="end">Cadastrar</ion-button>
-        <ion-button href="/login" size="small" slot="start" class="ion-float-start" fill="clear" color="medium" style="text-transform: none;">Já tenho conta</ion-button>
+        <ion-button fill="outline" color="dark" [disabled]="!form.valid" type="submit" slot="end">Entrar</ion-button>
+        <ion-button size="small" slot="start" class="ion-float-start" fill="clear" color="medium" style="text-transform: none;">Não tenho conta</ion-button>
       </ion-item>
     </ion-list>
+
+    <ion-toast class="custom-toast"
+    [isOpen]="isToastOpen"
+    message="Dados errados!"
+    [duration]="3000"
+    position="top"
+    color="danger"
+    (didDismiss)="setOpen(false)"
+  ></ion-toast>
   </ion-content>
 </form>

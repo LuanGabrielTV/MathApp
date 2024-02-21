@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text;
 using mathApp.DTO;
 using mathApp.Models;
 using mathApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace mathApp.Controllers
 {
@@ -14,10 +17,12 @@ namespace mathApp.Controllers
     {
         private ILicaoService _licaoService;
         private readonly DbContext _context;
-        public LicaoController(MySQLDBContext context, ILicaoService licaoService)
+        private readonly IConfiguration _configuration;
+        public LicaoController(MySQLDBContext context, ILicaoService licaoService, IConfiguration configuration)
         {
             _context = context;
             _licaoService = licaoService;
+            _configuration = configuration;
         }
         // GET: api/Licao
         [HttpGet]
@@ -50,7 +55,7 @@ namespace mathApp.Controllers
             return CreatedAtAction(nameof(GetLicao), new { id = licao.idLicao }, licao);
         }
 
-           // POST: api/Licao
+        // POST: api/Licao
         [HttpPost("Atividade")]
         public ActionResult<Atividade> AddAtividade(AtividadeDTO atividadeDto)
         {
@@ -85,7 +90,7 @@ namespace mathApp.Controllers
             _licaoService.DeleteLicao(licao);
             return CreatedAtAction(nameof(GetLicao), new { id = licao.idLicao }, licao);
         }
-        
+
         // DELETE: api/Licao/1
         [HttpDelete("{id}")]
         public ActionResult<Licao?> DeleteLicaoByIdLicao(int id)
@@ -97,6 +102,39 @@ namespace mathApp.Controllers
             }
             return CreatedAtAction(nameof(GetLicao), new { id = licao.idLicao }, licao);
         }
+        private UsuarioDTO? validarToken(string token)
+        {
+            if (token == null)
+            {
+                return null;
+            }
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Token").Value);
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                int id = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                string email = jwtToken.Claims.First(x => x.Type == "email").Value;
+                string nome = jwtToken.Claims.First(x => x.Type == "nome").Value;
+
+                return new UsuarioDTO(nome, email, id);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
+
+
 
 }

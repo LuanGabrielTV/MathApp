@@ -15,15 +15,25 @@ export class UsuarioService {
 
   constructor(private httpClient:HttpClient) { }
 
-  async addUsuario(usuario:Usuario){
+  async register(usuario:Usuario){
     try{
       let url = "http://localhost:5091/api/register/";
-      console.log(JSON.stringify(usuario));
       this.httpClient.post<Usuario>(url, JSON.stringify(usuario), this.httpOptions).subscribe((data)=> {
         console.log(data);
       });
     }catch(erro){
       console.log(erro);
     }
+  }
+
+  async login(usuario:Usuario){
+    try{
+      let headers = new HttpHeaders({'Content-Type': 'application/json','Access-Control-Allow-Origin':'*',});
+      let url = "http://localhost:5091/api/login/";
+      return this.httpClient.post(url, JSON.stringify(usuario), {headers, responseType: 'text'})
+    }catch(erro){
+      console.log(erro);
+    }
+    return null;
   }
 }

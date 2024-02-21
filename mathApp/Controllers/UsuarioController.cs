@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text;
+using mathApp.DTO;
 using mathApp.Models;
 using mathApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace mathApp.Controllers
 {
@@ -13,21 +17,31 @@ namespace mathApp.Controllers
     {
         private IUsuarioService _usuarioService;
         private readonly DbContext _context;
-        public UsuarioController(IUsuarioService usuarioService, DbContext context)
+        private readonly IConfiguration _configuration;
+        public UsuarioController(IUsuarioService usuarioService, DbContext context, IConfiguration configuration)
         {
             _context = context;
             _usuarioService = usuarioService;
+            _configuration = configuration;
         }
         // GET: api/Usuario
         [HttpGet]
-        public ActionResult<IEnumerable<Usuario>> GetUsuarios()
+        public ActionResult<IEnumerable<Usuario>> GetUsuarios([FromHeader] string token)
         {
+            if (validarToken(token) == null)
+            {
+                return Unauthorized();
+            }
             return _usuarioService.GetUsuarios();
         }
         // GET: api/Usuario/1
         [HttpGet("{id}")]
-        public ActionResult<Usuario?> GetUsuario(int id)
+        public ActionResult<Usuario?> GetUsuario([FromHeader] string token, int id)
         {
+            if (validarToken(token) == null)
+            {
+                return Unauthorized();
+            }
             var u = _usuarioService.GetUsuarioByIdUsuario(id);
             if (u == null)
             {
@@ -36,22 +50,14 @@ namespace mathApp.Controllers
             return u;
         }
 
-        // POST: api/Usuario
-        // [HttpPost]
-        // public ActionResult<Usuario> AddUsuario(Usuario usuario)
-        // {
-        //     if (usuario == null)
-        //     {
-        //         return BadRequest();
-        //     }
-        //     _usuarioService.AddUsuario(usuario);
-        //     return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
-        // }
-
         // PATCH: api/Usuario
         [HttpPatch]
-        public ActionResult<Usuario> UpdateUsuario(Usuario usuario)
+        public ActionResult<Usuario> UpdateUsuario([FromHeader] string token, Usuario usuario)
         {
+            if (validarToken(token) == null)
+            {
+                return Unauthorized();
+            }
             if (usuario == null)
             {
                 return BadRequest();
@@ -64,6 +70,7 @@ namespace mathApp.Controllers
         [HttpDelete]
         public ActionResult<Usuario> DeleteUsuarioByIdUsuario(Usuario usuario)
         {
+
             if (usuario == null)
             {
                 return BadRequest();
@@ -83,11 +90,43 @@ namespace mathApp.Controllers
             }
             return CreatedAtAction(nameof(GetUsuario), new { id = usuario.idUsuario }, usuario);
         }
-        
+
         [HttpGet("nomes")]
         public ActionResult<IEnumerable<string>> GetUsuariosNames()
         {
             return _usuarioService.GetUsuariosNames();
+        }
+
+        private UsuarioDTO? validarToken(string token)
+        {
+            if (token == null)
+            {
+                return null;
+            }
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Token").Value);
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                int id = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                string email = jwtToken.Claims.First(x => x.Type == "email").Value;
+                string nome = jwtToken.Claims.First(x => x.Type == "nome").Value;
+
+                return new UsuarioDTO(nome, email, id);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
