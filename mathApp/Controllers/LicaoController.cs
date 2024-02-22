@@ -26,8 +26,12 @@ namespace mathApp.Controllers
         }
         // GET: api/Licao
         [HttpGet]
-        public ActionResult<IEnumerable<Licao>> GetLicoes()
+        public ActionResult<IEnumerable<Licao>> GetLicoes([FromHeader] string token)
         {
+            if (validarToken(token) == null)
+            {
+                return Unauthorized();
+            }
             return _licaoService.GetLicoes();
         }
 
@@ -41,6 +45,22 @@ namespace mathApp.Controllers
                 return NotFound();
             }
             return l;
+        }
+
+         // GET: api/Licao/1
+        [HttpGet("Inicio/{id}")]
+        public ActionResult GetFrontPageLicoes(int id, [FromHeader] string token)
+        {
+            if (validarToken(token) == null)
+            {
+                return Unauthorized();
+            }
+            var licoes = _licaoService.GetFrontPageLicoes(id);
+            if (licoes == null)
+            {
+                return NotFound();
+            }
+            return Ok(licoes);
         }
 
         // POST: api/Licao
@@ -133,6 +153,7 @@ namespace mathApp.Controllers
                 return null;
             }
         }
+        
     }
 
 

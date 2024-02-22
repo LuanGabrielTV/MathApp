@@ -23,6 +23,11 @@ namespace mathApp.Services
             return _TbLicao.GetAll();
         }
 
+        public ActionResult<IEnumerable<Object>> GetFrontPageLicoes(int idUsuario)
+        {
+            return _TbLicao.GetFrontPageLicoes(idUsuario);
+        }
+
         public ActionResult<Licao?> GetLicaoByIdLicao(int id)
         {
             return _TbLicao.GetById(id);
@@ -62,6 +67,7 @@ namespace mathApp.Services
         Licao AddLicao(Licao u);
         ActionResult<IEnumerable<Licao>> GetLicoes();
         ActionResult<Licao?> GetLicaoByIdLicao(int id);
+        ActionResult<IEnumerable<Object>> GetFrontPageLicoes(int id);
         Licao UpdateLicao(Licao licao);
         Licao DeleteLicao(Licao licao);
         Licao? DeleteLicaoByIdLicao(int idLicao);

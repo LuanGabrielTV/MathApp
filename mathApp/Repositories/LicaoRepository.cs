@@ -29,9 +29,17 @@ namespace mathApp.Repositories
             return _TbLicao.Include(l => l.Atividades).Include(l => l.Matriculas).ThenInclude(m => m.Usuario).ToList();
         }
 
+        ActionResult<IEnumerable<Object>> ILicaoRepository.GetFrontPageLicoes(int idUsuario)
+        {
+            return _TbLicao.Include(l => l.Matriculas).Where(l => l.Matriculas.Any(m => m.idUsuario == idUsuario)).
+            Select(r => new { r.nome, r.idLicao, matriculado=true }).Union(
+                _TbLicao.Include(l => l.Matriculas).Where(l => l.Matriculas.All(m => m.idUsuario != idUsuario)).Select(r => new { r.nome, r.idLicao, matriculado=false })
+                ).ToList();
+        }
+
         ActionResult<Licao?> ILicaoRepository.GetById(int id)
         {
-            return _TbLicao.Find(id);
+            return _TbLicao.Include(l => l.Atividades).Include(l => l.Matriculas).Single(l => l.idLicao == id);
         }
 
         Licao ILicaoRepository.Update(Licao licao)
@@ -75,6 +83,7 @@ namespace mathApp.Repositories
     {
         ActionResult<Licao?> GetById(int id);
         ActionResult<IEnumerable<Licao>> GetAll();
+        ActionResult<IEnumerable<Object>> GetFrontPageLicoes(int id);
         Licao Add(Licao licao);
         Licao Update(Licao licao);
         Licao Delete(Licao licao);
