@@ -1,13 +1,20 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>licoes</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">licoes</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<h1 class="title">MathApp.co</h1>
+<body>
+  <ion-list>
+    <ion-item *ngFor="let licao of this.licoes" lines="none">
+      <ion-card [ngClass]="{'disabled':  !licao?.matriculado}" (click)="acessarLicao(licao)">
+        <ion-card-header>
+          <ion-card-subtitle>{{licao?.recompensa}} XP </ion-card-subtitle>
+          <ion-card-title>{{licao?.nome}}</ion-card-title>
+        </ion-card-header>
+        <ion-icon name="lock-open" size="large" *ngIf="licao?.matriculado"></ion-icon>
+        <ion-icon name="lock-closed" size="large" *ngIf="!licao?.matriculado"></ion-icon>
+      </ion-card>
+    </ion-item>
+    <ion-toast class="custom-toast" [isOpen]="isToastOpen" message="Essa lição ainda está bloqueada!" [duration]="3000"
+      position="top" color="danger" (didDismiss)="setOpen(false)"></ion-toast>
+  </ion-list>
+</body>
+<ion-button id="logout" fill="clear" (click)="logout()">
+  <ion-icon id="logoutButton" size="large" name="log-out-outline"></ion-icon>
+</ion-button>

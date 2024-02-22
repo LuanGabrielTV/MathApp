@@ -60,7 +60,7 @@ namespace mathApp.Controllers
             {
                 return NotFound();
             }
-            return Ok(licoes);
+            return Ok(licoes.Value);
         }
 
         // POST: api/Licao

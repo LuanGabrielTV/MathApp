@@ -1,3 +1,4 @@
+<h1 class="title">MathApp.co</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <ion-content ion-justify-content-center [fullscreen]="true">
     <ion-list>
@@ -23,9 +24,9 @@
         <ion-text color="danger" class="errorMessage" *ngIf="!!form.get('senha')?.valid && !form.get('senha')?.dirty">
           O campo é obrigatório. No mínimo 8 e no máximo 15 caracteres</ion-text>
       </ion-item>
-      <ion-item>
+      <ion-item lines="none">
         <ion-button fill="outline" color="dark" [disabled]="!form.valid" type="submit" slot="end">Cadastrar</ion-button>
-        <ion-button href="/login" size="small" slot="start" class="ion-float-start" fill="clear" color="medium" style="text-transform: none;">Já tenho conta</ion-button>
+        <ion-button [routerLink]="['/login']" size="small" slot="start" class="ion-float-start" fill="clear" color="medium" style="text-transform: none;">Já tenho conta</ion-button>
       </ion-item>
     </ion-list>
   </ion-content>

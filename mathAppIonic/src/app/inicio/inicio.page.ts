@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { UsuarioService } from '..//services/usuario.service';
 import { Usuario } from '../models/Usuario';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
@@ -9,9 +10,9 @@ import { Usuario } from '../models/Usuario';
 })
 export class InicioPage implements OnInit {
   form: FormGroup;
-  usuario:Usuario;
+  usuario: Usuario;
 
-  constructor(private fBuilder: FormBuilder, private usuarioService:UsuarioService) {
+  constructor(private fBuilder: FormBuilder, private usuarioService: UsuarioService, private router: Router) {
     this.usuario = new Usuario();
     this.form = this.fBuilder.group({
       'nome': [this.usuario.nome, Validators.compose([
@@ -36,5 +37,15 @@ export class InicioPage implements OnInit {
     this.usuario.email = this.form.get('email')?.value;
     this.usuario.senha = this.form.get('senha')?.value;
     this.usuarioService.register(this.usuario);
+    let token: any;
+    this.usuarioService.login(this.usuario).then(res => {
+      res?.subscribe(data => {
+        token = data;
+        if (token != null) {
+          localStorage.setItem('token', token);
+          this.router.navigate(['licoes']);
+        }
+      });
+    });
   }
 }

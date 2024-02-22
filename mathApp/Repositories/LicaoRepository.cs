@@ -32,8 +32,8 @@ namespace mathApp.Repositories
         ActionResult<IEnumerable<Object>> ILicaoRepository.GetFrontPageLicoes(int idUsuario)
         {
             return _TbLicao.Include(l => l.Matriculas).Where(l => l.Matriculas.Any(m => m.idUsuario == idUsuario)).
-            Select(r => new { r.nome, r.idLicao, matriculado=true }).Union(
-                _TbLicao.Include(l => l.Matriculas).Where(l => l.Matriculas.All(m => m.idUsuario != idUsuario)).Select(r => new { r.nome, r.idLicao, matriculado=false })
+            Select(r => new { r.nome, r.idLicao, r.recompensa, matriculado=true }).Union(
+                _TbLicao.Include(l => l.Matriculas).Where(l => l.Matriculas.All(m => m.idUsuario != idUsuario)).Select(r => new { r.nome, r.idLicao, r.recompensa, matriculado=false })
                 ).ToList();
         }
 

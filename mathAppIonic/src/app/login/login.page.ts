@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../services/usuario.service';
 import { ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';  
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginPage implements OnInit {
   isToastOpen: boolean;
 
 
-  constructor(private fBuilder: FormBuilder, private usuarioService: UsuarioService, private tController: ToastController) {
+  constructor(private fBuilder: FormBuilder, private usuarioService: UsuarioService, private tController: ToastController, private router:Router) {
     this.usuario = new Usuario();
     this.form = this.fBuilder.group({
       'email': [this.usuario.email, Validators.compose([
@@ -45,6 +46,7 @@ export class LoginPage implements OnInit {
         token = data;
         if(token!=null){
           localStorage.setItem('token', token);
+          this.router.navigate(['licoes']);
         }else{
           this.setOpen(true);
         }
