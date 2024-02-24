@@ -1,7 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using mathApp.DTO;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace mathApp.Models
 {
@@ -15,21 +20,22 @@ namespace mathApp.Models
         public string? enunciado { get; set; }
         public string? conteudo { get; set; }
         public string? solucao { get; set; }
-        [NotMapped]
-        public List<string>? questao { get; set; }
+        public string[]? questao { get; set; }
         public Boolean? isFinished { get; set; }
 
         public int idLicao { get; set; }
 
         public Licao Licao { get; set; } = null!;
 
-        public Atividade(){}
+        public Atividade() { 
+        }
 
-        public Atividade(AtividadeDTO atividadeDto){
+        public Atividade(AtividadeDTO atividadeDto)
+        {
             this.enunciado = atividadeDto.enunciado;
             this.conteudo = atividadeDto.conteudo;
             this.solucao = atividadeDto.solucao;
-            this.questao = atividadeDto.questao;
+            this.questao = JsonConvert.DeserializeObject<string[]>(JsonConvert.SerializeObject(atividadeDto.questao));
             this.isFinished = atividadeDto.isFinished;
             this.idLicao = atividadeDto.idLicao;
         }

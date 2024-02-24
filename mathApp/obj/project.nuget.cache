@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8iu9IINv1rNQsdNpdI6ia9wfGsPjGhmQZsn9HyTNBavEL95P8GOGv0+xc9h/aGMHoOJxsXOsiptIytNTH8uM8g==",
+  "dgSpecHash": "lUQJeiyxqDcY3Oa7iY89tGswgNVmH9a8aApy3PDKvvXPcoQXdR76Hp9VbqEX/Bc1EcK9qxkt47NCip73duQOvg==",
   "success": true,
   "projectFilePath": "/home/luangtv/Programacao/MathApp/mathApp/mathApp.csproj",
   "expectedPackageFiles": [
@@ -27,6 +27,7 @@
     "/home/luangtv/.nuget/packages/microsoft.identitymodel.tokens/7.3.1/microsoft.identitymodel.tokens.7.3.1.nupkg.sha512",
     "/home/luangtv/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/home/luangtv/.nuget/packages/mysqlconnector/2.1.2/mysqlconnector.2.1.2.nupkg.sha512",
+    "/home/luangtv/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/home/luangtv/.nuget/packages/pomelo.entityframeworkcore.mysql/6.0.1/pomelo.entityframeworkcore.mysql.6.0.1.nupkg.sha512",
     "/home/luangtv/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "/home/luangtv/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",

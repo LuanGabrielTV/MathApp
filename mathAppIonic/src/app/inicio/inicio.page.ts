@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class InicioPage implements OnInit {
   form: FormGroup;
   usuario: Usuario;
-
   constructor(private fBuilder: FormBuilder, private usuarioService: UsuarioService, private router: Router) {
     this.usuario = new Usuario();
     this.form = this.fBuilder.group({
@@ -36,7 +35,15 @@ export class InicioPage implements OnInit {
     this.usuario.nome = this.form.get('nome')?.value;
     this.usuario.email = this.form.get('email')?.value;
     this.usuario.senha = this.form.get('senha')?.value;
-    this.usuarioService.register(this.usuario);
+    this.usuarioService.register(this.usuario).finally(()=>{
+      this.login();
+    });
+    
+  }
+
+  login() {
+    console.log(this.usuarioService);
+    console.log(this.usuario);
     let token: any;
     this.usuarioService.login(this.usuario).then(res => {
       res?.subscribe(data => {
@@ -47,5 +54,6 @@ export class InicioPage implements OnInit {
         }
       });
     });
+
   }
 }

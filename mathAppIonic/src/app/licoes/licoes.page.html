@@ -1,20 +1,23 @@
-<h1 class="title">MathApp.co</h1>
+
 <body>
+  <h1 class="title"> MathApp.co </h1>
   <ion-list>
     <ion-item *ngFor="let licao of this.licoes" lines="none">
-      <ion-card [ngClass]="{'disabled':  !licao?.matriculado}" (click)="acessarLicao(licao)">
+      <ion-card [ngClass]="{'disabled':licao?.matriculas==null}" (click)="acessarLicao(licao)">
         <ion-card-header>
-          <ion-card-subtitle>{{licao?.recompensa}} XP </ion-card-subtitle>
+          <ion-card-subtitle>{{licao?.recompensa}}xp </ion-card-subtitle>
           <ion-card-title>{{licao?.nome}}</ion-card-title>
         </ion-card-header>
-        <ion-icon name="lock-open" size="large" *ngIf="licao?.matriculado"></ion-icon>
-        <ion-icon name="lock-closed" size="large" *ngIf="!licao?.matriculado"></ion-icon>
+        <ion-icon class="locker" name="lock-open" size="large" *ngIf="licao?.matriculas!=null"></ion-icon>
+        <ion-icon class="locker" name="lock-closed" size="large" *ngIf="licao?.matriculas==null"></ion-icon>
+        <ion-icon class="caret" name="caret-forward" size="large"></ion-icon>
       </ion-card>
     </ion-item>
     <ion-toast class="custom-toast" [isOpen]="isToastOpen" message="Essa lição ainda está bloqueada!" [duration]="3000"
       position="top" color="danger" (didDismiss)="setOpen(false)"></ion-toast>
   </ion-list>
 </body>
-<ion-button id="logout" fill="clear" (click)="logout()">
-  <ion-icon id="logoutButton" size="large" name="log-out-outline"></ion-icon>
+<ion-button id="logoutButton" fill="clear" color="danger" (click)="logout()">
+  <ion-icon id="logoutIcon" size="large" name="log-out-outline"></ion-icon>
+  <p>Sair</p>
 </ion-button>

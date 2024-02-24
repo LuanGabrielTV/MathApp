@@ -39,6 +39,9 @@ namespace mathApp.Migrations
                     b.Property<bool?>("isFinished")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("questao")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("solucao")
                         .HasColumnType("longtext");
 

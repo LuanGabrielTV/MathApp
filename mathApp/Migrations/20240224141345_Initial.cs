@@ -63,6 +63,8 @@ namespace mathApp.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     solucao = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    questao = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     isFinished = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     idLicao = table.Column<int>(type: "int", nullable: false)
                 },

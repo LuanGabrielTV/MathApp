@@ -15,12 +15,29 @@ export class LicaoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  async getFrontPageLicoes(token: string) {
+  decode(token: string) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('-', '+').replace('_', '/');
-    const usuario = JSON.parse(window.atob(base64));
+    return JSON.parse(window.atob(base64));
+  }
+
+  async getFrontPageLicoes(token: string) {
+    const usuario = this.decode(token);
 
     let url = this.urlServidor + "Inicio/" + usuario.id;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'token': token });
+    try {
+      return this.httpClient.get(url, { headers, responseType: 'text' });
+    } catch (erro) {
+      console.log(erro);
+    }
+    return null;
+  }
+
+  async getLicao(token: string, idLicao: string) {
+    const usuario = this.decode(token);
+
+    let url = this.urlServidor + idLicao;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'token': token });
     try {
       return this.httpClient.get(url, { headers, responseType: 'text' });

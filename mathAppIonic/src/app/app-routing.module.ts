@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'licoes',
     loadChildren: () => import('./licoes/licoes.module').then( m => m.LicoesPageModule)
+  },
+  {
+    path: 'licao',
+    loadChildren: () => import('./licao/licao.module').then( m => m.LicaoPageModule)
   }
 ];
 

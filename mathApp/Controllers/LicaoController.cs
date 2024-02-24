@@ -37,8 +37,12 @@ namespace mathApp.Controllers
 
         // GET: api/Licao/1
         [HttpGet("{id}")]
-        public ActionResult<Licao?> GetLicao(int id)
+        public ActionResult<Licao?> GetLicao(int id, [FromHeader] string token)
         {
+            if (validarToken(token) == null)
+            {
+                return Unauthorized();
+            }
             var l = _licaoService.GetLicaoByIdLicao(id);
             if (l == null)
             {

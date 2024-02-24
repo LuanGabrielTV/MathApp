@@ -11,7 +11,7 @@ using mathApp.Models;
 namespace mathApp.Migrations
 {
     [DbContext(typeof(MySQLDBContext))]
-    [Migration("20240220185346_Initial")]
+    [Migration("20240224141345_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace mathApp.Migrations
 
                     b.Property<bool?>("isFinished")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("questao")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("solucao")
                         .HasColumnType("longtext");

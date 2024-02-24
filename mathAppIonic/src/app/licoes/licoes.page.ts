@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';  
+import { Router } from '@angular/router';
 import { LicaoService } from '../services/licao.service';
 import { Licao } from '../models/Licao';
 
@@ -10,11 +10,11 @@ import { Licao } from '../models/Licao';
 })
 export class LicoesPage implements OnInit {
 
-  token:any;
+  token: any;
   licoes: any[];
   isToastOpen: boolean;
 
-  constructor(private router: Router, private licaoService: LicaoService) { 
+  constructor(private router: Router, private licaoService: LicaoService) {
     this.token = localStorage.getItem('token');
     this.licoes = [];
     this.isToastOpen = false;
@@ -22,7 +22,7 @@ export class LicoesPage implements OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
-    if(this.token == null){
+    if (this.token == null) {
       this.router.navigate(['login']);
     }
     this.licaoService.getFrontPageLicoes(this.token).then(res => {
@@ -32,23 +32,28 @@ export class LicoesPage implements OnInit {
     })
   }
 
-  async parseLicoes(data: any[]){
+  async parseLicoes(data: any[]) {
     data.forEach((element: any) => {
-      this.licoes.push(new Licao(element.idLicao, element.nome, element.matriculado, element.recompensa));
+      this.licoes.push(new Licao(element.idLicao, element.nome, element.matricula, element.recompensa));
     });
+    console.log(this.licoes);
   }
 
   setOpen(set: boolean) {
     this.isToastOpen = set;
   }
 
-  acessarLicao(licao:Licao){
-    if(!licao.matriculado){
+  acessarLicao(licao: Licao) {
+    if (licao.matriculas == null) {
       this.setOpen(true);
     }
+    this.router.navigate(['licao'], {
+      queryParams:
+        { idLicao: licao.idLicao }
+    });
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('token');
     this.router.navigate(['login']);
   }

@@ -10,6 +10,7 @@ namespace mathApp.Models
             modelBuilder.Entity<UsuarioHasLicao>().HasOne(m => m.Usuario).WithMany(u => u.Matriculas);
             modelBuilder.Entity<UsuarioHasLicao>().HasKey(m => new { m.idUsuario, m.idLicao });
             modelBuilder.Entity<Licao>().HasMany(l => l.Atividades).WithOne(a => a.Licao).HasForeignKey(a => a.idLicao).IsRequired();
+            modelBuilder.Entity<Atividade>().Property(l => l.questao).HasConversion(v => string.Join(',', v),v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
             base.OnModelCreating(modelBuilder);
         }
 

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 using mathApp.DTO;
 using mathApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -31,10 +32,9 @@ namespace mathApp.Repositories
 
         ActionResult<IEnumerable<Object>> ILicaoRepository.GetFrontPageLicoes(int idUsuario)
         {
-            return _TbLicao.Include(l => l.Matriculas).Where(l => l.Matriculas.Any(m => m.idUsuario == idUsuario)).
-            Select(r => new { r.nome, r.idLicao, r.recompensa, matriculado=true }).Union(
-                _TbLicao.Include(l => l.Matriculas).Where(l => l.Matriculas.All(m => m.idUsuario != idUsuario)).Select(r => new { r.nome, r.idLicao, r.recompensa, matriculado=false })
-                ).ToList();
+            return _TbLicao.Include(l => l.Matriculas).Where(l => l.Matriculas.Any(m => m.idUsuario == idUsuario)).Union(
+                _TbLicao.Include(l => l.Matriculas).Where(l => l.Matriculas.All(m => m.idUsuario != idUsuario))).
+                Select(r => new { r.nome, r.idLicao, r.recompensa, matricula = r.Matriculas.SingleOrDefault(m => m.idUsuario == idUsuario) }).ToList();
         }
 
         ActionResult<Licao?> ILicaoRepository.GetById(int id)
@@ -73,6 +73,7 @@ namespace mathApp.Repositories
         {
             Licao? l = _TbLicao.Find(atividadeDto.idLicao);
             Atividade atividade = new Atividade(atividadeDto);
+            Console.WriteLine(string.Join(", ", atividade.questao));
             atividade.Licao = l;
             l.Atividades.Add(atividade);
             _context.SaveChanges();

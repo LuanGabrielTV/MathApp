@@ -1,13 +1,32 @@
 ion-card {
-    --background: #f5b641;
-    --color: #000000;
-    width: 100%;
-    padding:3%;
+    --background: #ffc14d;
+    --color: #ff8138;
+    border: 3px solid #ff8138;
     border-radius: 20px;
     box-shadow: none;
-    height:20vh;
-    transition: height 0.5s;
+    height: 20vh;
+    width: 100%;
+    transition: 0.2s;
+    padding: 1%;
 }
+
+body{
+    overflow-y: scroll;
+}
+
+body::-webkit-scrollbar{
+    background-color: white;
+    width: 0.5em;
+    margin:1%;
+}
+
+body::-webkit-scrollbar-thumb{
+    background-color: rgb(213, 213, 213);
+    border-radius: 5px;
+    width: 1em;
+    
+}
+
 
 .title{
     width: 100%;
@@ -20,48 +39,70 @@ ion-card {
     color: black;
 }
 
-ion-card:hover{
-    --background: rgb(255, 181, 71);
-    height:22vh;
-    transition: 0.5s ease-in-out;
+
+
+ion-card:hover {
+    --background: rgb(255, 201, 121);
+    height: 22vh;
+    transition: 0.2s ease-in-out;
 }
 
-.disabled{
-    opacity:0.6;
+.disabled {
+    background-color: white;
+    color: black;
+    border: 3px solid black;
+    opacity: 0.3;
+}
+
+.disabled ion-card-subtitle {
+    color: black;
 }
 
 ion-list {
     position: absolute;
-    width: 50%;
+    width: 30%;
     top: 20%;
-    left: 25%;
+    left: 35%;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
 }
 
-ion-icon{
+ion-icon {
     position: absolute;
-    bottom: 12%;
-    right: 3%;
 }
 
-body{
+.locker {
+    width: 20px;
+    right: 3%;
+    top: 5%;
+}
+
+.caret {
+    width: 20px;
+    right: 3%;
+    bottom: 5%;
+}
+
+body {
     background-color: white;
 }
 
 ion-card-title {
     --color: #000000;
-    font-size: 50px;
+    font-size: 30px;
     font-weight: 800;
     position: absolute;
-    top:0;
-    left:0;
+    margin-top: 6%;
+    float: left;
 }
 
 ion-card-subtitle {
-    --color: #ff5e00;
-    font-weight: 800;
-    font-size: 20px;
+    --color: #ff8138;
+    font-weight: 600;
+    font-size: 15px;
     position: absolute;
-    right:0;
+    float: left;
 }
 
 .custom-toast {
@@ -74,21 +115,25 @@ ion-card-subtitle {
     font-weight: bold;
 }
 
-#logout{
+#logoutIcon {
+    width:20px;
     position: absolute;
-    bottom:2%;
-    right:0.5%;
-    z-index: 1;
-    align-content: center;
-    justify-content: center;
-    width:3%;
-    text-align: center;
-    height: 5vh;
-    color:black;
+    left:0;
 }
 
-#logoutButton{
+#logoutButton {
     position: absolute;
+    width:6.5%;
+    padding:0.5%;
+    right:0;
     bottom:0;
+    text-transform: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+#logoutButton p{
+    position: absolute;
     right:0;
 }
+

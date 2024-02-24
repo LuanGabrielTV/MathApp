@@ -1,0 +1,40 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <ion-content>
+    <h1 class="title"> MathApp.co </h1>
+    <ion-card class="licao">
+      <ion-card-title>
+        <h1>{{this.licao?.nome}}</h1>
+      </ion-card-title>
+      <ion-card-subtitle>
+        <h5>{{this.licao?.recompensa}} xp</h5>
+      </ion-card-subtitle>
+      <ion-card-content>
+        <p class="content" [innerHTML]="this.licao?.conteudo"></p>
+      </ion-card-content>
+    </ion-card>
+    <ion-list>
+      <ion-item lines="none" *ngFor="let atividade of this.atividades">
+        <ion-card id="{{'a'+atividade.idAtividade}}" class="questao">
+          <ion-card-subtitle class="questaoEnunciado">{{atividade.enunciado}}</ion-card-subtitle>
+          <ion-card-content class="questaoContent">{{atividade.conteudo}}</ion-card-content>
+
+          <ion-list>
+            <ion-item lines="none" *ngFor="let alternativa of atividade.questao; let i = index">
+              <ion-button class="alternativa" id="{{'q'+atividade.idAtividade+alternativa}}"
+                (click)="selecionar(atividade, alternativa, $event.target, i)">{{alternativa}}</ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-button id="finalizarButton" [disabled]="!this.atividades.every(isFinishedAtividade)">Finalizar!</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</body>
