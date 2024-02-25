@@ -36,11 +36,32 @@ namespace mathApp.Controllers
             return m;
         }
 
-         // GET: api/Usuario/1
+         // GET: api/Licao/1
         [HttpGet("Licao/{id}")]
         public ActionResult<IEnumerable<UsuarioHasLicao>> GetMatriculasByLicao(int id)
         {
             var m = _usuarioHasLicaoService.GetMatriculasByLicao(id);
+            if (m == null)
+            {
+                return NotFound();
+            }
+            return m;
+        }
+
+        // PATCH
+        [HttpPatch("{idUsuario}/{idLicao}")]
+        public ActionResult<Object> PatchMatricula(int idUsuario, int idLicao){
+            if(idUsuario == null || idLicao == null){
+                return BadRequest();
+            }
+            var matricula = _usuarioHasLicaoService.switchMatricula(idUsuario, idLicao);
+            return Ok(matricula);
+        }
+
+        [HttpDelete("{idUsuario}/{idLicao}")]
+        public ActionResult<UsuarioHasLicao> DeleteMatriculasByIDs(int idUsuario, int idLicao)
+        {
+            var m = _usuarioHasLicaoService.DeleteMatriculasByIDs(idUsuario, idLicao);
             if (m == null)
             {
                 return NotFound();

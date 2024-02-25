@@ -45,3 +45,4 @@
 /home/luangtv/Programacao/MathApp/mathApp/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
 /home/luangtv/Programacao/MathApp/mathApp/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
 /home/luangtv/Programacao/MathApp/mathApp/bin/Debug/net8.0/Newtonsoft.Json.dll
+/home/luangtv/Programacao/MathApp/mathApp/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll

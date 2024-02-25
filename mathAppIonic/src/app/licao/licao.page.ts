@@ -61,6 +61,7 @@ export class LicaoPage implements OnInit {
         transform: ["translateX(0px)", "translateX(-10px)", "translateX(10px)", "translateX(0px)"]
       }, 500);
       botao.style.setProperty("--background","#ffd2d2");
+      botao.style.setProperty("--border-color","#ffd2d2");
       card.style.setProperty('border', "3px solid #ff9999");
       this.atividades[this.atividades.indexOf(atividade)].isFinished = false;
     } else {
@@ -70,6 +71,8 @@ export class LicaoPage implements OnInit {
       }, 375);
       card.style.setProperty('border', "3px solid #77ff8a");
       botao.style.setProperty("--background","#afffba");
+      botao.style.setProperty("--border-color","#afffba");
+      
       this.atividades[this.atividades.indexOf(atividade)].isFinished = true;
     }
     console.log(this.atividades);
@@ -78,5 +81,10 @@ export class LicaoPage implements OnInit {
   isFinishedAtividade(element:any, index:any, array:any){
     return element.isFinished;
   }
+
+  finalizarLicao(){
+    this.licaoService.finalizarLicao(this.token, this.licao);
+  }
+
 
 }

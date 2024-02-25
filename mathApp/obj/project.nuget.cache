@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "lUQJeiyxqDcY3Oa7iY89tGswgNVmH9a8aApy3PDKvvXPcoQXdR76Hp9VbqEX/Bc1EcK9qxkt47NCip73duQOvg==",
+  "dgSpecHash": "Z4mb1IYpwS5Xcic0AlK+oxWVYLRujCQID9mXlfZuTjL9zTYU4iNIIyL/byrHrBpklU70HVaASCcv2ZmgzT7REQ==",
   "success": true,
   "projectFilePath": "/home/luangtv/Programacao/MathApp/mathApp/mathApp.csproj",
   "expectedPackageFiles": [
     "/home/luangtv/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
+    "/home/luangtv/.nuget/packages/microsoft.aspnetcore.jsonpatch/8.0.2/microsoft.aspnetcore.jsonpatch.8.0.2.nupkg.sha512",
     "/home/luangtv/.nuget/packages/microsoft.aspnetcore.openapi/8.0.1/microsoft.aspnetcore.openapi.8.0.1.nupkg.sha512",
+    "/home/luangtv/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/home/luangtv/.nuget/packages/microsoft.entityframeworkcore/6.0.4/microsoft.entityframeworkcore.6.0.4.nupkg.sha512",
     "/home/luangtv/.nuget/packages/microsoft.entityframeworkcore.abstractions/6.0.4/microsoft.entityframeworkcore.abstractions.6.0.4.nupkg.sha512",
     "/home/luangtv/.nuget/packages/microsoft.entityframeworkcore.analyzers/6.0.4/microsoft.entityframeworkcore.analyzers.6.0.4.nupkg.sha512",

@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from "jwt-decode";
 import { Usuario } from '../models/Usuario';
+import { Licao } from '../models/Licao';
+import { Atividade } from '../models/Atividade';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +47,17 @@ export class LicaoService {
       console.log(erro);
     }
     return null;
+  }
+
+  async finalizarLicao(token:string, licao:Licao){
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'token': token });
+    licao.atividades?.forEach((element : Atividade) => {
+
+    });
+    try {
+
+    } catch (erro) {
+      console.log(erro);
+    }
   }
 }

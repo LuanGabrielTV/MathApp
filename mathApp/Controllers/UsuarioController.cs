@@ -97,6 +97,16 @@ namespace mathApp.Controllers
             return _usuarioService.GetUsuariosNames();
         }
 
+        [HttpGet("matricular/{idUsuario}/{idLicao}")]
+        public ActionResult<UsuarioHasLicao> matricular(int idUsuario, int idLicao)
+        {
+            if(idUsuario!=null && idLicao!=null){
+                return _usuarioService.matricular(idUsuario, idLicao);
+            }
+            return BadRequest();
+        }
+
+
         private UsuarioDTO? validarToken(string token)
         {
             if (token == null)

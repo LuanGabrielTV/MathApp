@@ -33,7 +33,7 @@
         </ion-card>
       </ion-item>
       <ion-item lines="none">
-        <ion-button id="finalizarButton" [disabled]="!this.atividades.every(isFinishedAtividade)">Finalizar!</ion-button>
+        <ion-button id="finalizarButton" (click)="finalizarLicao()" [disabled]="!this.atividades.every(isFinishedAtividade)">Finalizar!</ion-button>
       </ion-item>
     </ion-list>
   </ion-content>

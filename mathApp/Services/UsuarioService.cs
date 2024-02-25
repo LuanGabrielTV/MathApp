@@ -65,6 +65,11 @@ namespace mathApp.Services
             return _TbUsuario.GetUsuariosNames();
         }
 
+        public ActionResult<UsuarioHasLicao?> matricular(int idUsuario, int idLicao)
+        {
+            return _TbUsuario.matricular(idUsuario, idLicao);
+        }
+
 
     }
 
@@ -74,6 +79,7 @@ namespace mathApp.Services
         Usuario findByCredentials(string email);
         ActionResult<IEnumerable<Usuario>> GetUsuarios();
         ActionResult<Usuario?> GetUsuarioByIdUsuario(int id);
+        ActionResult<UsuarioHasLicao?> matricular(int idUsuario, int idLicao);
         Usuario UpdateUsuario(Usuario usuario);
         Usuario DeleteUsuario(Usuario usuario);
         Usuario? DeleteUsuarioByIdUsuario(int idUsuario);

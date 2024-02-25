@@ -32,6 +32,15 @@ namespace mathApp.Services
             return _TbUsuarioHasLicao.GetMatriculasByLicao(idLicao);
         }
 
+        public ActionResult<UsuarioHasLicao> switchMatricula(int idUsuario, int idLicao)
+        {
+            return _TbUsuarioHasLicao.switchMatricula(idUsuario, idLicao);
+        }
+
+        public ActionResult<UsuarioHasLicao> DeleteMatriculasByIDs(int idUsuario, int idLicao){
+            return _TbUsuarioHasLicao.DeleteMatriculasByIDs(idUsuario, idLicao);
+        }
+
     }
 
     public interface IUsuarioHasLicaoService
@@ -39,5 +48,7 @@ namespace mathApp.Services
         ActionResult<IEnumerable<UsuarioHasLicao>> GetMatriculas();
         ActionResult<IEnumerable<UsuarioHasLicao>> GetMatriculasByUsuario(int idUsuario);
         ActionResult<IEnumerable<UsuarioHasLicao>> GetMatriculasByLicao(int idLicao);
+        ActionResult<UsuarioHasLicao> switchMatricula(int idUsuario, int idLicao);
+         ActionResult<UsuarioHasLicao> DeleteMatriculasByIDs(int idUsuario, int idLicao);
     }
 }

@@ -48,18 +48,17 @@
     --border-radius: 10px;
     --border-width:5px;
     --border-color: rgb(128, 128, 128);
-    --background: #efefef;
+    --background: #f9f9f9;
     --color: #808080;
     --box-shadow: none;
-    --font-weight:bolder;
+    --font-weight:1000;
     --font-size:14px;
-    --ripple-color: deeppink;
     margin-bottom:2%;
+    --border-radius: 8px;
+    --border-color: rgb(214, 214, 214);
+    --border-style: solid;
+    --border-width: 3px;
 
-}
-
-ion-button{
-    font-weight: 600;
 }
 
 .questaoEnunciado{
@@ -120,6 +119,8 @@ h5 {
     position:absolute;
     right:25.5%;
     --border-radius: 8px;
+
+    
 }
 
 body {
@@ -127,4 +128,8 @@ body {
     align-items: center;
     justify-content: center;
     align-content: center;
+}
+
+ion-button{
+    font-weight: 800;
 }

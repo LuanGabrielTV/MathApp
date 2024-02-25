@@ -38,7 +38,8 @@ namespace mathApp.Repositories
         Usuario IUsuarioRepository.findByCredentials(string email)
         {
             Usuario u = _TbUsuario.Where(u => u.email == email).FirstOrDefault();
-            if(u == null){
+            if (u == null)
+            {
                 return null;
             }
             return u;
@@ -59,6 +60,20 @@ namespace mathApp.Repositories
             _TbUsuario.Update(usuario);
             _context.SaveChanges();
             return usuario;
+        }
+
+        ActionResult<UsuarioHasLicao> IUsuarioRepository.matricular(int idUsuario, int idLicao)
+        {
+            Usuario u = _TbUsuario.Find(idUsuario);
+            Licao l = _TbLicao.Find(idLicao);
+            if (u != null && l != null)
+            {
+                UsuarioHasLicao mat = new UsuarioHasLicao(u, l);
+                _TbMatricula.Add(mat);
+                _context.SaveChanges();
+                return mat;
+            }
+            return null;
         }
 
         Usuario? IUsuarioRepository.DeleteById(int idUsuario)
@@ -94,6 +109,8 @@ namespace mathApp.Repositories
         Usuario Update(Usuario usuario);
         Usuario? DeleteById(int idUsuario);
         Usuario Delete(Usuario usuario);
+
+        ActionResult<UsuarioHasLicao> matricular(int idUsuario, int idLicao);
         ActionResult<IEnumerable<string>> GetUsuariosNames();
     }
 }
