@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'licao',
     loadChildren: () => import('./licao/licao.module').then( m => m.LicaoPageModule)
+  },
+  {
+    path: 'resumo',
+    loadChildren: () => import('./resumo/resumo.module').then( m => m.ResumoPageModule)
   }
 ];
 

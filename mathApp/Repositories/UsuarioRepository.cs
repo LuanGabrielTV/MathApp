@@ -3,6 +3,8 @@ using mathApp.DTO;
 using mathApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace mathApp.Repositories
 {
@@ -88,6 +90,21 @@ namespace mathApp.Repositories
             return null;
         }
 
+        Usuario IUsuarioRepository.progredir(object o){
+            var info =  JObject.Parse(o.ToString());
+            Console.Write(info["idUsuario"].ToString());
+            Usuario? usuario = _TbUsuario.Find(info["idUsuario"].Value<int>());
+            if(usuario != null){
+                usuario.XP += info["XP"].Value<int>();
+                _TbUsuario.Update(usuario);
+                _context.SaveChanges();
+                Console.WriteLine("100");
+                return usuario;
+            }
+            Console.WriteLine("103");
+            return null;
+        }
+
         Usuario IUsuarioRepository.Delete(Usuario usuario)
         {
             _TbUsuario.Remove(usuario);
@@ -109,7 +126,7 @@ namespace mathApp.Repositories
         Usuario Update(Usuario usuario);
         Usuario? DeleteById(int idUsuario);
         Usuario Delete(Usuario usuario);
-
+        Usuario progredir(Object o);
         ActionResult<UsuarioHasLicao> matricular(int idUsuario, int idLicao);
         ActionResult<IEnumerable<string>> GetUsuariosNames();
     }

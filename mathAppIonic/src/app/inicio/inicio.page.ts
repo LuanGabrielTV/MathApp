@@ -35,9 +35,11 @@ export class InicioPage implements OnInit {
     this.usuario.nome = this.form.get('nome')?.value;
     this.usuario.email = this.form.get('email')?.value;
     this.usuario.senha = this.form.get('senha')?.value;
-    this.usuarioService.register(this.usuario).finally(()=>{
-      this.login();
-    });
+    this.usuarioService.register(this.usuario).then(res => {
+      res?.subscribe(data =>{
+        this.login();
+      })
+    })
     
   }
 

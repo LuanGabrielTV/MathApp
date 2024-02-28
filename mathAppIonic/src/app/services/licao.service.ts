@@ -48,16 +48,4 @@ export class LicaoService {
     }
     return null;
   }
-
-  async finalizarLicao(token:string, licao:Licao){
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'token': token });
-    licao.atividades?.forEach((element : Atividade) => {
-
-    });
-    try {
-
-    } catch (erro) {
-      console.log(erro);
-    }
-  }
 }

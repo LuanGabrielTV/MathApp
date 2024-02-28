@@ -14,17 +14,30 @@ export class LicoesPage implements OnInit {
   licoes: any[];
   isToastOpen: boolean;
 
+
   constructor(private router: Router, private licaoService: LicaoService) {
     this.token = localStorage.getItem('token');
     this.licoes = [];
     this.isToastOpen = false;
+    this.ionViewWillEnter()
   }
 
   ngOnInit() {
+    this.licoes = [];
     this.token = localStorage.getItem('token');
     if (this.token == null) {
       this.router.navigate(['login']);
     }
+  }
+
+  ionViewWillEnter() {
+    this.licoes = [];
+    
+    console.log("load");
+  }
+
+  ionViewDidEnter(){
+    this.licoes = [];
     this.licaoService.getFrontPageLicoes(this.token).then(res => {
       res?.subscribe(data => {
         this.parseLicoes(JSON.parse(data)['$values']);
@@ -32,7 +45,8 @@ export class LicoesPage implements OnInit {
     })
   }
 
-  async parseLicoes(data: any[]) {
+  parseLicoes(data: any[]) {
+    this.licoes = [];
     data.forEach((element: any) => {
       this.licoes.push(new Licao(element.idLicao, element.nome, element.matricula, element.recompensa));
     });
@@ -44,13 +58,20 @@ export class LicoesPage implements OnInit {
   }
 
   acessarLicao(licao: Licao) {
-    if (licao.matriculas == null) {
-      this.setOpen(true);
+    if (licao.matriculas != null) {
+      if (licao.matriculas.isFinished) {
+        this.router.navigate(['resumo'], {
+          queryParams:
+            { idLicao: licao.idLicao , 'isFinished': licao.matriculas.isFinished }
+        });
+
+      } else {
+        this.router.navigate(['licao'], {
+          queryParams:
+            { idLicao: licao.idLicao , 'isFinished': licao.matriculas.isFinished }
+        });
+      }
     }
-    this.router.navigate(['licao'], {
-      queryParams:
-        { idLicao: licao.idLicao }
-    });
   }
 
   logout() {

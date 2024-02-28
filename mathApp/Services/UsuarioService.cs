@@ -70,6 +70,10 @@ namespace mathApp.Services
             return _TbUsuario.matricular(idUsuario, idLicao);
         }
 
+        public ActionResult<Usuario> progredir(Object o)
+        {
+            return _TbUsuario.progredir(o);
+        }
 
     }
 
@@ -84,6 +88,7 @@ namespace mathApp.Services
         Usuario DeleteUsuario(Usuario usuario);
         Usuario? DeleteUsuarioByIdUsuario(int idUsuario);
         ActionResult<IEnumerable<string>> GetUsuariosNames();
+        ActionResult<Usuario> progredir(Object o);
 
     }
 }

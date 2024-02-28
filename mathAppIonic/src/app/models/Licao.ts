@@ -4,13 +4,20 @@ export class Licao{
     conteudo: string | undefined;
     recompensa: number | undefined;
     atividades: Array<any> | undefined; // trocar tipo quando inserir atividades
-    matriculas: Array<any> | undefined;
-
-    constructor(idLicao:number, nome:string, matriculas:any[], recompensa:number){
+    matriculas: matricula | undefined;
+    isFinished: boolean | undefined;
+    constructor(idLicao:number, nome:string, matriculas:any, recompensa:number){
         this.idLicao = idLicao;
-        this.matriculas = matriculas;
         this.nome = nome;
         this.recompensa = recompensa;
+        this.matriculas = matriculas as matricula;
     }
 
+    
+}
+
+class matricula{
+    idLicao:number | undefined;
+    idUsuario: number | undefined;
+    isFinished: boolean | undefined;
 }

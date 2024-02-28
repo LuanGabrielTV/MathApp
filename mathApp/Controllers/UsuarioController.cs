@@ -50,6 +50,14 @@ namespace mathApp.Controllers
             return u;
         }
 
+        [HttpPost("progredir")]
+        public ActionResult<Usuario> progredir([FromHeader] string token, Object o){
+            if(validarToken(token) == null){
+                return Unauthorized();
+            }
+            return _usuarioService.progredir(o);
+        }
+
         // PATCH: api/Usuario
         [HttpPatch]
         public ActionResult<Usuario> UpdateUsuario([FromHeader] string token, Usuario usuario)

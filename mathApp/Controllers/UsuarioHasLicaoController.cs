@@ -50,7 +50,7 @@ namespace mathApp.Controllers
 
         // PATCH
         [HttpPatch("{idUsuario}/{idLicao}")]
-        public ActionResult<Object> PatchMatricula(int idUsuario, int idLicao){
+        public ActionResult<Object> switchMatricula(int idUsuario, int idLicao){
             if(idUsuario == null || idLicao == null){
                 return BadRequest();
             }

@@ -20,12 +20,12 @@ namespace mathApp.Models{
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idUsuario { get; set; }
-        [Required]
+
         [MaxLength(15)]
         public string? nome { get; set; }
-        [Required]
+ 
         public string? email { get; set; }
-        [Required]
+
         public byte[]? senha { get; set; }
         public byte[]? salt { get; set; }
         public int? XP { get; set; }

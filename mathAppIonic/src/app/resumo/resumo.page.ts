@@ -12,21 +12,14 @@ import { AnimationController, IonModal, ModalController } from '@ionic/angular';
 
 
 @Component({
-  selector: 'app-licao',
-  templateUrl: './licao.page.html',
-  styleUrls: ['./licao.page.scss'],
+  selector: 'app-resumo',
+  templateUrl: './resumo.page.html',
+  styleUrls: ['./resumo.page.scss'],
 })
-export class LicaoPage implements OnInit {
-  @ViewChild(IonModal) modal: IonModal | undefined
+export class ResumoPage implements OnInit {
   token: any;
   licao: any;
   atividades: any = [];
-  isModalOpen = false;
-  prox: any;
-
-  switchModal() {
-    this.isModalOpen = !this.isModalOpen;
-  }
 
   constructor(private router: Router, private licaoService: LicaoService, private matriculaService: MatriculaService, private usuarioService: UsuarioService, private modalCtrl: ModalController) {
     this.token = localStorage.getItem('token');
@@ -37,30 +30,23 @@ export class LicaoPage implements OnInit {
     if (this.token == null) {
       this.router.navigate(['login']);
     }
-
+    
 
   }
 
-
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     const idLicao = this.router.parseUrl(this.router.url).queryParams['idLicao'];
     let isFinished = this.router.parseUrl(this.router.url).queryParams['isFinished'];
-    if (idLicao != null && isFinished=='false') {
+    if (idLicao == null || isFinished!='true') {
+      this.router.navigate(['licoes']);
+    } else {
       this.licaoService.getLicao(this.token, idLicao).then(res => {
         res?.subscribe(data => {
           this.parseLicao(JSON.parse(data));
         })
       })
-      let idProx: number = +idLicao;
-      this.licaoService.getLicao(this.token, (idProx + 1).toString()).then(res => {
-        res?.subscribe(data => {
-          let info = JSON.parse(data);
-          this.prox = new Licao(info.idLicao, info.nome, info.matriculas, info.recompensa);
-        })
-      })
-    } else {
-      this.router.navigate(['licoes']);
     }
+
   }
 
   parseLicao(data: any) {
@@ -69,12 +55,6 @@ export class LicaoPage implements OnInit {
     data.atividades['$values'].forEach((element: any) => {
       this.atividades.push(new Atividade(element.idAtividade, element.enunciado, element.conteudo, element.questao, element.solucao));
     });
-    if (this.licao.matriculas.isFinished) {
-      this.router.navigate(['resumo'], {
-        queryParams:
-          { idLicao: this.licao.idLicao }
-      });
-    }
   }
 
 
@@ -107,29 +87,8 @@ export class LicaoPage implements OnInit {
     console.log(this.atividades);
   }
 
-  isFinishedAtividade(element: any, index: any, array: any) {
-    return element.isFinished;
-  }
-
-  finalizarLicao() {
-    if (this.licao.matriculas['$values'][0].isFinished) {
-      this.router.navigate(['resumo'], {
-        queryParams:
-          { idLicao: this.licao.idLicao }
-      });
-    }
-    this.modal?.dismiss();
-    this.matriculaService.finalizarLicao(this.token, this.licao).finally(() => { this.matricularUsuario(); });
-  }
-
-  matricularUsuario() {
-    this.usuarioService.matricular(this.token, this.licao).finally(() => { this.progredirUsuario(); });
-  }
-
-  progredirUsuario() {
-    this.usuarioService.progredir(this.token, this.licao);
+  voltar() {
     this.router.navigate(['licoes']);
   }
-
 
 }

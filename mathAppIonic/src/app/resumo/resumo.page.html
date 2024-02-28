@@ -33,32 +33,8 @@
         </ion-card>
       </ion-item>
       <ion-item lines="none">
-        <ion-button id="finalizarButton" (click)="switchModal()" [disabled]="!this.atividades.every(isFinishedAtividade)">Finalizar!</ion-button>
+        <ion-button id="finalizarButton" (click)="voltar()">Voltar</ion-button>
       </ion-item>
     </ion-list>
-    <ion-modal backdropDismiss="false" [isOpen]="isModalOpen">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Parabéns!</ion-title>
-            <ion-buttons slot="end" style="margin-right:3%;">
-              <ion-button (click)="this.finalizarLicao()">Continuar</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content>
-          <div id="recompensa">
-            <p id="modalNome" style="color:black;">{{this.licao?.nome}}</p>
-            <p id="modalRecompensa">{{this.licao?.recompensa}} XP</p>
-            <ion-icon size="large" id="modalIconFinished" name="trophy"></ion-icon>
-          </div>
-          <div id="proximo">
-            <p id="modalProxDesbloq">Você acaba de desbloquear</p>
-            <p id="modalProxNome" style="color:black;">{{this.prox?.nome}}</p>
-            <ion-icon size="large" id="modalIconUnlocked" name="lock-open"></ion-icon>
-          </div>
-        </ion-content>
-      </ng-template>
-    </ion-modal>
   </ion-content>
 </body>

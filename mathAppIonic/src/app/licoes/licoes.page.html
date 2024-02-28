@@ -3,19 +3,23 @@
   <h1 class="title"> MathApp.co </h1>
   <ion-list>
     <ion-item *ngFor="let licao of this.licoes" lines="none">
-      <ion-card [ngClass]="{'disabled':licao?.matriculas==null}" (click)="acessarLicao(licao)">
+      <ion-card [ngClass]="{'disabled':licao?.matriculas==null, 'finished':licao?.matriculas?.isFinished}">
+      
         <ion-card-header>
           <ion-card-subtitle>{{licao?.recompensa}}xp </ion-card-subtitle>
           <ion-card-title>{{licao?.nome}}</ion-card-title>
+          <ion-button class="licaoButton" *ngIf="this.licao?.matriculas?.isFinished" (click)="acessarLicao(licao)"><ion-icon style="position:relative;left:0;margin-right:12%;transform: scale(2.5);" name="play-back-circle"></ion-icon> Revisar</ion-button>
+          <ion-button class="licaoButton" *ngIf="!this.licao?.matriculas?.isFinished && licao?.matriculas!=null" style="--background:#ff8138;margin-top:26%;" (click)="acessarLicao(licao)"><ion-icon style="position:relative;left:0;margin-right:12%;transform: scale(8);" class="caret" name="caret-forward"></ion-icon> Acessar</ion-button>
         </ion-card-header>
         <ion-icon class="locker" name="lock-open" size="large" *ngIf="licao?.matriculas!=null"></ion-icon>
         <ion-icon class="locker" name="lock-closed" size="large" *ngIf="licao?.matriculas==null"></ion-icon>
-        <ion-icon class="caret" name="caret-forward" size="large"></ion-icon>
       </ion-card>
     </ion-item>
     <ion-toast class="custom-toast" [isOpen]="isToastOpen" message="Essa lição ainda está bloqueada!" [duration]="3000"
       position="top" color="danger" (didDismiss)="setOpen(false)"></ion-toast>
   </ion-list>
+
+  
 </body>
 <ion-button id="logoutButton" fill="clear" color="danger" (click)="logout()">
   <ion-icon id="logoutIcon" size="large" name="log-out-outline"></ion-icon>

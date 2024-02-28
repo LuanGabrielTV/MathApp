@@ -39,12 +39,14 @@ body::-webkit-scrollbar-thumb{
     color: black;
 }
 
-
-
 ion-card:hover {
     --background: rgb(255, 201, 121);
     height: 22vh;
     transition: 0.2s ease-in-out;
+}
+
+ion-card:hover ion-button{
+    display: block;
 }
 
 .disabled {
@@ -56,6 +58,66 @@ ion-card:hover {
 
 .disabled ion-card-subtitle {
     color: black;
+}
+
+.disabled ion-card-subtitle {
+    color: black;
+}
+
+
+.finished {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 168, 0);
+    border: 3px solid rgb(124, 255, 124);;
+    opacity: 0.3;
+    height: 10vh;
+}
+
+.finished ion-icon{
+    display: none;
+}
+
+.licaoButton{
+    display: none;
+    width:25%;
+    color:black;
+    --background:rgb(124, 255, 124);
+    --box-shadow:none;
+    text-transform: none;
+    font-weight: 700;
+    --border-radius: 8px;
+    font-size:15px;
+    position: absolute;
+    right:3%;
+    margin-top:12%;
+}
+
+
+
+.finished:hover ion-button{
+    display: block;
+}
+
+.finished:hover ion-button ion-icon{
+    display: block;
+}
+
+
+.finished ion-card-title{
+    font-size: 15px;
+    color:green;
+}
+
+.finished ion-card-subtitle{
+    font-size: 15px;
+    color:green;
+}
+
+.finished:hover {
+    --background: rgb(255, 201, 121);
+    height: 15vh;
+    transition: 0.2s ease-in-out;
+    opacity: 1;
 }
 
 ion-list {
