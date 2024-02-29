@@ -37,6 +37,10 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.form.reset();
+  }
+
   onSubmit() {
     this.usuario.email = this.form.get('email')?.value;
     this.usuario.senha = this.form.get('senha')?.value;

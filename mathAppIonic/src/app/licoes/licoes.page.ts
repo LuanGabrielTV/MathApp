@@ -19,25 +19,23 @@ export class LicoesPage implements OnInit {
     this.token = localStorage.getItem('token');
     this.licoes = [];
     this.isToastOpen = false;
-    this.ionViewWillEnter()
   }
 
   ngOnInit() {
+
+  }
+
+  ionViewWillEnter() {
+    this.licoes = [];
+  }
+
+
+  ionViewDidEnter(){
     this.licoes = [];
     this.token = localStorage.getItem('token');
     if (this.token == null) {
       this.router.navigate(['login']);
     }
-  }
-
-  ionViewWillEnter() {
-    this.licoes = [];
-    
-    console.log("load");
-  }
-
-  ionViewDidEnter(){
-    this.licoes = [];
     this.licaoService.getFrontPageLicoes(this.token).then(res => {
       res?.subscribe(data => {
         this.parseLicoes(JSON.parse(data)['$values']);
@@ -45,12 +43,20 @@ export class LicoesPage implements OnInit {
     })
   }
 
+
+  scrollTo(element: any) {
+    element.scrollIntoView({behavior:'smooth'});
+  }
+
   parseLicoes(data: any[]) {
     this.licoes = [];
     data.forEach((element: any) => {
       this.licoes.push(new Licao(element.idLicao, element.nome, element.matricula, element.recompensa));
     });
-    console.log(this.licoes);
+    var latest = document.getElementsByClassName("latest");
+    setTimeout(() => {
+      this.scrollTo(latest.item(0));
+    }, 1);
   }
 
   setOpen(set: boolean) {

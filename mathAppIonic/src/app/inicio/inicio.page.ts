@@ -31,6 +31,10 @@ export class InicioPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.form.reset();
+  }
+
   onSubmit() {
     this.usuario.nome = this.form.get('nome')?.value;
     this.usuario.email = this.form.get('email')?.value;
@@ -44,14 +48,17 @@ export class InicioPage implements OnInit {
   }
 
   login() {
+    this.usuario.email = this.form.get('email')?.value;
+    this.usuario.senha = this.form.get('senha')?.value;
+    let token:any;
     console.log(this.usuarioService);
     console.log(this.usuario);
-    let token: any;
     this.usuarioService.login(this.usuario).then(res => {
       res?.subscribe(data => {
         token = data;
         if (token != null) {
           localStorage.setItem('token', token);
+          console.log(token);
           this.router.navigate(['licoes']);
         }
       });
